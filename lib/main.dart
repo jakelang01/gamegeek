@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+//import 'package:intl/intl.dart';
+//import 'dart:convert';
+//import 'package:crypto/crypto.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,15 +41,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
@@ -66,6 +60,33 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[],
         ),
+      ),
+      drawer: HamburgerDir(),
+    );
+  }
+}
+
+class HamburgerDir extends StatelessWidget {
+
+  // method for flutter data binding taken from: https://medium.com/flutter-community/data-binding-in-flutter-or-passing-data-from-a-child-widget-to-a-parent-widget-4b1c5ffe2114
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        children: [
+          ListTile(
+            title: Text('Example button',
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .button
+            ),
+            onTap: () {
+              print("tapped!");
+            },
+          ),
+        ],
       ),
     );
   }
