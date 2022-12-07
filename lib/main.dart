@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-//import 'package:intl/intl.dart';
-//import 'dart:convert';
-//import 'package:crypto/crypto.dart';
+import 'screens/game_search_screen.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -84,7 +83,7 @@ class HamburgerDir extends StatelessWidget {
             ),
             onTap: () {
               print("tapped!");
-            },
+              },
           ),
         ],
       ),
