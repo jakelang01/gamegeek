@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:game_geek/screens/alarms_screen.dart';
+import 'package:game_geek/screens/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -95,7 +96,18 @@ class HamburgerDir extends StatelessWidget {
                       return AlarmScreen();
                     }));
             }
-          )
+          ),
+          ListTile(
+            title: Text('Login Screen',
+              style: Theme.of(context).textTheme.button,
+          ),
+          onTap:(){
+              Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context){
+                  return LoginScreen();
+                }));}
+          ),
         ],
       ),
     );
