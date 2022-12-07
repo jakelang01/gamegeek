@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'screens/game_search_screen.dart';
-
+import 'package:game_geek/screens/alarms_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -81,10 +80,22 @@ class HamburgerDir extends StatelessWidget {
                     .textTheme
                     .button
             ),
-            onTap: () {
+            onTap: (){
               print("tapped!");
-              },
+            },
           ),
+          ListTile(
+            title: Text('Game Alarm',
+              style: Theme.of(context).textTheme.button,
+            ),
+            onTap: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (BuildContext context){
+                      return AlarmScreen();
+                    }));
+            }
+          )
         ],
       ),
     );
