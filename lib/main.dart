@@ -3,13 +3,31 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:game_geek/screens/alarms_screen.dart';
 import 'package:game_geek/screens/login_screen.dart';
+import 'package:game_geek/screens/settings_screen.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+
+  static _MyAppState of(BuildContext context) =>
+      context.findAncestorStateOfType<_MyAppState>()!;
+}
+
+class _MyAppState extends State<MyApp> {
+
+  ThemeMode _themeMode = ThemeMode.system;
+
+  void changeTheme(ThemeMode newMode) {
+    setState(() {
+      _themeMode = newMode;
+    });
+  }
 
   // This widget is the root of your application.
   @override
@@ -24,9 +42,16 @@ class MyApp extends StatelessWidget {
                 title: 'Game Geek',
                 theme: ThemeData(
                   colorScheme: ColorScheme.fromSwatch(
-                    primarySwatch: Colors.blue,
+                    primarySwatch: Colors.brown,
                   ),
                 ),
+                darkTheme: ThemeData(
+                  colorScheme: ColorScheme.fromSwatch(
+                    primarySwatch: Colors.brown,
+                  ),
+                  scaffoldBackgroundColor: Colors.grey.shade900,
+                ),
+                themeMode: _themeMode,
                 home: const MyHomePage(title: 'Game Geek')
             );
           }
@@ -106,7 +131,23 @@ class HamburgerDir extends StatelessWidget {
               MaterialPageRoute(
                 builder: (BuildContext context){
                   return LoginScreen();
-                }));}
+                }));
+              },
+          ),
+          ListTile(
+            title: Text('Settings',
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .button
+            ),
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return SettingsPage(title: 'settings', key: Key("settings"));
+                      }));
+            },
           ),
         ],
       ),
