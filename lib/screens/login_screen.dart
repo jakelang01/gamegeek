@@ -15,11 +15,10 @@ class _LoginScreen extends State<LoginScreen> {
   }
 
   Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).backgroundColor,
-      child: Text('help me im trapped in a login screen',
-          style: Theme.of(context).textTheme.headline1,
-      ),
+    return Scaffold(
+      appBar: AppBar(),
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: Container(),
     );
   }
 }
