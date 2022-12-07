@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:game_geek/screens/alarms_screen.dart';
+import 'package:game_geek/screens/login_screen.dart';
+import 'package:game_geek/screens/game_search_screen.dart';
 import 'package:game_geek/screens/settings_screen.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -99,17 +102,6 @@ class HamburgerDir extends StatelessWidget {
       child: ListView(
         children: [
           ListTile(
-            title: Text('Example button',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .button
-            ),
-            onTap: (){
-              print("tapped!");
-            },
-          ),
-          ListTile(
             title: Text('Game Alarm',
               style: Theme.of(context).textTheme.button,
             ),
@@ -120,6 +112,30 @@ class HamburgerDir extends StatelessWidget {
                       return AlarmScreen();
                     }));
             }
+          ),
+          ListTile(
+            title: Text('Login Screen',
+              style: Theme.of(context).textTheme.button,
+            ),
+            onTap:(){
+              Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context){
+                  return LoginScreen();
+                }));
+              },
+          ),
+          ListTile(
+              title: Text('Game Screen',
+                style: Theme.of(context).textTheme.button,
+              ),
+              onTap: (){
+                Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (BuildContext context){
+                          return SearchScreen();
+                        }));
+              },
           ),
           ListTile(
             title: Text('Settings',
