@@ -42,6 +42,7 @@ dependencies:
   csv: ^5.0.1
   flutter_alarm_clock: ^0.0.1
   intl: ^0.17.0
+  youtube_player_flutter: ^8.1.1
 
 
 dev_dependencies:

@@ -71,19 +71,24 @@ class _VideosScreenState extends State<VideosScreen> {
                 ),
               ),
             ),
-            Padding(padding: EdgeInsets.only(left: 15,right: 270),
-              child: ElevatedButton(
-                child: Text('Search'),
-                onPressed: () {
-                  search(controller.value.text);
-                },
+            Padding(padding: EdgeInsets.only(left: 15),
+              child: Row(
+                children: <Widget>[
+                  ElevatedButton(
+                    child: Text('Search'),
+                    onPressed: () {
+                      search(controller.value.text);
+                    },
+                  ),
+                  Padding(padding: EdgeInsets.only(left: 10),
+                    child: Text(resultText,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                  ),
+                ]
               ),
             ),
-            Padding(padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-              child: Text(resultText,
-                style: Theme.of(context).textTheme.bodyText1,)
-            ),
-            Padding(padding: EdgeInsets.only(left: 15,right: 270),
+            Padding(padding: EdgeInsets.only(left: 15,right: 270,top: 10),
               child: ElevatedButton(
                 child: Text('See Results'),
                 onPressed: () {
