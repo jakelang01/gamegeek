@@ -17,7 +17,7 @@ class _VideosScreenState extends State<VideosScreen> {
 
   TextEditingController controller = TextEditingController();
   String resultText = "";
-  List results = [];
+  List<DocumentSnapshot> results = [];
   int numOfResults = 0;
   final videoDB = FirebaseFirestore.instance.collection('Videos');
 
