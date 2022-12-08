@@ -16,12 +16,27 @@ class _ProfilePageState extends State<ProfilePage> {
 
   // example fields that could be in a profile
   // need to be in user's database document
-  //TODO: Get data from db on build
+  //TODO: Get data for logged in user from db on build
   //TODO: Update relevant field on button press
-  String name = "";
-  String age = "";
-  String location = "";
-  String favorite = "";
+  Map<String,String> userData = {"name":"","age":"","location":"","favorite":""};
+  final userDB = FirebaseFirestore.instance.collection('Users');
+  String username = "exampleUsername"; // change these to reflect logged in user
+  String password = "password";
+  
+  Future<void> getData() async {
+    QuerySnapshot<Map<String,dynamic>> userQuery = await userDB.where("username",isEqualTo: username).where("password",isEqualTo: password).get();
+    QueryDocumentSnapshot userDoc = userQuery.docs.elementAt(0);
+    setState(() {
+      userData["name"] = userDoc.get("name");
+      userData["age"] = userDoc.get("age");
+      userData["location"] = userDoc.get("location");
+      userData["favorite"] = userDoc.get("favorite");
+    });
+  }
+
+  void initState() {
+    getData();
+  }
 
   Widget createProfileRow(String display, String field) {
     return Padding(padding: EdgeInsets.all(10),
@@ -55,10 +70,10 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         body: Center(child: ListView(
           children: <Widget>[
-            createProfileRow("Name: " + name, "Name"),
-            createProfileRow("Age: " + age,"Age"),
-            createProfileRow("Location: " + location,"Location"),
-            createProfileRow("Favorite Game: " + favorite,"Favorite"),
+            createProfileRow("Name: " + (userData["name"] as String), "name"),
+            createProfileRow("Age: " + (userData["age"] as String),"age"),
+            createProfileRow("Location: " + (userData["location"] as String),"location"),
+            createProfileRow("Favorite Game: " + (userData["favorite"] as String),"favorite"),
           ],
         )
         ));
