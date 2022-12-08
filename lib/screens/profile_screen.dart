@@ -3,16 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
-class ProfilePage extends StatefulWidget {
+class ProfileScreen extends StatefulWidget {
 
-  ProfilePage({required Key? key, required this.title}) : super(key: key);
+  ProfileScreen({required Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _ProfileScreenState createState() => _ProfileScreenState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfileScreenState extends State<ProfileScreen> {
 
   // example fields that could be in a profile
   // need to be in user's database document
@@ -42,10 +42,10 @@ class _ProfilePageState extends State<ProfilePage> {
     return Padding(padding: EdgeInsets.all(10),
         child: Row(
             children: <Widget>[
-              Text(display),
+              Text(display,style: Theme.of(context).textTheme.bodyText1,),
               Padding(padding: EdgeInsets.symmetric(horizontal: 10),
                 child:ElevatedButton(
-                  child: Text('Edit'),
+                  child: Text('Edit',),
                   onPressed: (){
                     editField(field);
                     },
@@ -77,10 +77,5 @@ class _ProfilePageState extends State<ProfilePage> {
           ],
         )
         ));
-  }
-
-  _fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
-    currentFocus.unfocus();
-    FocusScope.of(context).requestFocus(nextFocus);
   }
 }

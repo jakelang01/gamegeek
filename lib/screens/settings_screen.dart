@@ -5,16 +5,16 @@ import '../main.dart';
 import 'profile_screen.dart';
 import 'dart:convert';
 
-class SettingsPage extends StatefulWidget {
+class SettingsScreen extends StatefulWidget {
 
-  SettingsPage({required Key? key, required this.title}) : super(key: key);
+  SettingsScreen({required Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  _SettingsPageState createState() => _SettingsPageState();
+  _SettingsScreenState createState() => _SettingsScreenState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   Navigator.of(context).push(
                       MaterialPageRoute(
                           builder: (BuildContext context){
-                            return ProfilePage(key: Key('profile'),title: 'profile');
+                            return ProfileScreen(key: Key('profile'),title: 'profile');
                           }));
                 },
               ),
@@ -75,10 +75,5 @@ class _SettingsPageState extends State<SettingsPage> {
           ],
         )
         ));
-  }
-
-  _fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
-    currentFocus.unfocus();
-    FocusScope.of(context).requestFocus(nextFocus);
   }
 }

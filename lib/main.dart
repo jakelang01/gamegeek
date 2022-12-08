@@ -5,6 +5,7 @@ import 'package:game_geek/screens/alarms_screen.dart';
 import 'package:game_geek/screens/login_screen.dart';
 import 'package:game_geek/screens/game_search_screen.dart';
 import 'package:game_geek/screens/settings_screen.dart';
+import 'package:game_geek/screens/videos_screen.dart';
 
 
 void main() {
@@ -46,12 +47,24 @@ class _MyAppState extends State<MyApp> {
                   colorScheme: ColorScheme.fromSwatch(
                     primarySwatch: Colors.brown,
                   ),
+                  textTheme: TextTheme(
+                    bodyText1: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18
+                    ),
+                  ),
                 ),
                 darkTheme: ThemeData(
                   colorScheme: ColorScheme.fromSwatch(
                     primarySwatch: Colors.brown,
                   ),
                   scaffoldBackgroundColor: Colors.grey.shade900,
+                    textTheme: TextTheme(
+                        bodyText1: TextStyle(
+                            color: Colors.grey.shade400,
+                            fontSize: 18
+                        ),
+                    ),
                 ),
                 themeMode: _themeMode,
                 home: const MyHomePage(title: 'Game Geek')
@@ -138,6 +151,18 @@ class HamburgerDir extends StatelessWidget {
               },
           ),
           ListTile(
+            title: Text('Videos',
+              style: Theme.of(context).textTheme.button,
+            ),
+            onTap: (){
+              Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (BuildContext context){
+                        return VideosScreen(key:Key('videos'),title: 'videos',);
+                      }));
+            },
+          ),
+          ListTile(
             title: Text('Settings',
                 style: Theme
                     .of(context)
@@ -148,7 +173,7 @@ class HamburgerDir extends StatelessWidget {
               Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (BuildContext context) {
-                        return SettingsPage(title: 'settings', key: Key("settings"));
+                        return SettingsScreen(title: 'settings', key: Key("settings"));
                       }));
             },
           ),
