@@ -41,6 +41,8 @@ dependencies:
   crypto: ^3.0.2
   csv: ^5.0.1
   flutter_alarm_clock: ^0.0.1
+  intl: ^0.17.0
+
 
 dev_dependencies:
   flutter_test:

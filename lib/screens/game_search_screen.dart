@@ -12,24 +12,15 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreen extends State<SearchScreen> {
 
-  String bedTime1 = '';
-  String description1 = '';
-  int quality1 = 0;
-  String totalSleep1 = '';
-  String wakeUp1 = '';
-  String userText = '';
-  TextEditingController userInput = TextEditingController();
-
-  void setData(String number) {
-
-    setState(() {
-      bedTime1 = '';
-      description1 = '';
-      quality1 = 1;
-      totalSleep1 = '';
-      wakeUp1 = '';
-    });
-  }
+  List<List<String>>? rawData;
+  String dataFilePath = 'assets/bgg_db_2018_01.csv';
+  String exampleText = '';
+  String nameText = '';
+  String minPlayerText = '';
+  TextEditingController nameInput = TextEditingController();
+  TextEditingController minPlayerInput = TextEditingController();
+  TextEditingController maxPlayerInput = TextEditingController();
+  TextEditingController avgTimeInput = TextEditingController();
 
   // UI ideas:
   //  - First screen that has buttons asking what you want to filter by (game info, filter options, etc.) then
@@ -47,12 +38,36 @@ class _SearchScreen extends State<SearchScreen> {
   // function to search for game and get information
   // text field to enter game name then search csv/database for all the information
 
+
   // function to filter game search by number of players and see related game information
   // text field to enter number of players and have if statement to search through database?
 
   // function to sort by the duration of a game (lowest-highest, vice-versa)
   // ?
 
+
+  Future<void> readDataFile() async {
+    var bytes = await rootBundle.load(dataFilePath);
+    String bytesAsString = utf8.decode(bytes.buffer.asUint8List());
+    rawData = const CsvToListConverter().convert(bytesAsString);
+  }
+
+  List<String> getRow(int rowNum) {
+    return rawData![rowNum];
+  }
+
+  String getEntry(int rowNum, int colNum) {
+    return getRow(rowNum)[colNum];
+  }
+
+  String getName(int rowNum, int colNum) {
+    return getEntry(rowNum, colNum);
+  }
+
+  void setData(int rowNum, int colNum) {
+    String name = getEntry(rowNum, colNum);
+    String rank = '';
+  }
 
   @override
   void initState() {
@@ -70,13 +85,24 @@ class _SearchScreen extends State<SearchScreen> {
         body: Column(
             children:<Widget>[
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                padding: const EdgeInsets.only(left: 10, right: 210, top: 10, bottom: 10),
                 child: TextFormField(
-                  controller: userInput,
+                  controller: nameInput,
                   decoration: InputDecoration(
                     hintText: 'Game Name',
-                    contentPadding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(32)),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20.0),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 210, right: 10, top: 10, bottom: 10),
+                child: TextFormField(
+                  controller: minPlayerInput,
+                  decoration: InputDecoration(
+                    hintText: 'Mininum Number of Players',
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20.0),
+                    border: OutlineInputBorder(),
                   ),
                 ),
               ),
@@ -85,15 +111,16 @@ class _SearchScreen extends State<SearchScreen> {
                   child:ElevatedButton(
                     child: Text('Submit'),
                     onPressed: () {
-                      userText = userInput.text;
-                      setData(userText);
+                      nameText = nameInput.text;
+                      minPlayerText = minPlayerInput.text;
+                      setData(1, 1);
                     },
                   )
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                 child: Text(
-                  "hello",
+                  "im playing " + exampleText,
                   textAlign: TextAlign.center,
                   //overflow: TextOverflow.ellipsis,
                   textScaleFactor: 0.9,
@@ -106,8 +133,9 @@ class _SearchScreen extends State<SearchScreen> {
   }
 }
 
+/*
 class GameInfoData {
-  List<List<dynamic>>? rawData;
+  List<List<String>>? rawData;
   String dataFilePath = 'assets/bgg_db_2018_01.csv';
 
   Future<void> readDataFile() async {
@@ -116,4 +144,16 @@ class GameInfoData {
     rawData = const CsvToListConverter().convert(bytesAsString);
   }
 
+  List<String> getRow(int rowNum) {
+    return rawData![rowNum];
+  }
+
+  String getEntry(int rowNum, int colNum) {
+    return getRow(rowNum)[colNum];
+  }
+
+  String getName(int rowNum, int colNum) {
+    return getEntry(rowNum, colNum);
+  }
 }
+ */

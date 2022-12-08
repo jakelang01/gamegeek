@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_alarm_clock/flutter_alarm_clock.dart';
+import 'package:intl/intl.dart';
 
 /*****************************************************************************************************/
 /*                                                                                                   */
-/*  Alarm clock code taken from https://www.geeksforgeeks.org/flutter-building-an-alarm-clock-app/   */
+/*   Some alarm code taken from https://www.geeksforgeeks.org/flutter-building-an-alarm-clock-app/   */
 /*                                                                                                   */
 /*****************************************************************************************************/
 
@@ -17,73 +18,99 @@ class AlarmScreen extends StatefulWidget {
 class _AlarmScreen extends State<AlarmScreen>{
 
   //text controllers
-  TextEditingController hourController = TextEditingController();
-  TextEditingController minuteController = TextEditingController();
+  TextEditingController clockController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
   }
 
+
+  int hourCalc(TextEditingController controller){
+    String fix = controller.text;
+    List fixHour = controller.text.split(":");
+    int h = int.parse(fixHour[0]);
+    print(h);
+    return h;
+  }
+
+  int minuteCalc(TextEditingController controller){
+    String fix = controller.text;
+    List fixMin = fix.split(":");
+    int min = int.parse(fixMin[1]);
+    print(min);
+    return min;
+  }
+
   @override
   Widget build(BuildContext build){
-    return Center(
-        child: Column(
-          children: <Widget>[
-            const SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 40,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      color: Colors.lightBlueAccent,
-                      borderRadius: BorderRadius.circular(11)
-                    ),
-                    child: Center(
-                      child: TextField(
-                        controller: hourController,
-                        keyboardType: TextInputType.number,
-                        ),
-                      ),
-                  ),
-                  const SizedBox(width: 20),
-                  Container(
-                    height: 40,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      color: Colors.lightBlueAccent,
-                      borderRadius: BorderRadius.circular(11)
-                    ),
-                    child: Center(
-                      child: TextField(
-                        controller: minuteController,
-                        keyboardType: TextInputType.number,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Container(
-                margin: const EdgeInsets.all(25),
-                child: TextButton(
-                  child: const Text(
-                    'Create alarm',
-                    style: TextStyle(fontSize: 20.0),
-                  ),
-                  onPressed: () {
-                    int hour;
-                    int minutes;
-                    hour = int.parse(hourController.text);
-                    minutes = int.parse(minuteController.text);
-                    FlutterAlarmClock.createAlarm(hour, minutes);
-                  },
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(false),
+        ),
+        title: Text("Game Alarms"),
+        actions: <Widget>[],
+      ),
+    backgroundColor: Colors.white,
+    body: Column(
+        //mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const Padding(
+            padding: EdgeInsets.only(top: 16, bottom: 8),
+            child: Text(
+              "Select your alarm time here: ",
+              //style: ,
+            ),
+          ),
+          Padding(
+            padding:const EdgeInsets.symmetric(horizontal: 108, vertical: 8),
+              child:TextField(
+                controller: clockController, //editing controller of this TextField
+                decoration: InputDecoration(
+                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).unselectedWidgetColor)),
+                  icon: Icon(Icons.timer), //icon of text field
+                  labelText: "Set alarm",
+                  labelStyle: Theme.of(context).textTheme.bodyText2,
+                  floatingLabelStyle: Theme.of(context).textTheme.bodyText1,//label text of field
                 ),
+                readOnly: true,  //set it true, so that user will not able to edit text
+                onTap: () async {
+                    TimeOfDay? pickedTime =  await showTimePicker(
+                    initialTime: TimeOfDay.now(),
+                    context: context,
+                  );
+                  if(pickedTime != null ){
+                    print(pickedTime.format(context));   //output 10:51 PM
+                    DateTime parsedTime = DateFormat.jm().parse(pickedTime.format(context).toString());
+                    //converting to DateTime so that we can further format on different pattern.
+                    print(parsedTime); //output 1970-01-01 22:53:00.000
+                    String formattedTime = DateFormat('HH:mm').format(parsedTime);
+                    print(formattedTime); //output 14:59
+                    //DateFormat() is from intl package, you can format the time on any pattern you need.
+                    setState(() {
+                      clockController.text = formattedTime; //set the value of text field.
+                    });
+                  }
+                  else{
+                    print("Time is not selected");
+                  }
+                },
               ),
-          ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: ElevatedButton(
+              child: const Text(
+                'Create your game alarm!',
+                style: TextStyle(fontSize: 20.0),
+              ),
+              onPressed: () {
+                FlutterAlarmClock.createAlarm(hourCalc(clockController), minuteCalc(clockController));
+              },
+            ),
+          )],
         ),
     );
   }
