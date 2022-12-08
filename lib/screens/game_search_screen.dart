@@ -16,9 +16,17 @@ class _SearchScreen extends State<SearchScreen> {
 
   List<List<String>>? rawData;
   String dataFilePath = 'assets/bgg_db_2018_01.csv';
-  String exampleText = '';
-  String nameText = '';
-  String minPlayerText = '';
+  String rank = '';
+  String URL = '';
+  String gameID = '';
+  String gameName = '';
+  String minPlayers = '';
+  String maxPlayers = '';
+  String avgTime = '';
+  String minTime = '';
+  String maxTime = '';
+  String year = '';
+  String restOfString = '';
   TextEditingController nameInput = TextEditingController();
   TextEditingController minPlayerInput = TextEditingController();
   TextEditingController maxPlayerInput = TextEditingController();
@@ -62,13 +70,29 @@ class _SearchScreen extends State<SearchScreen> {
     return getRow(rowNum)[colNum];
   }
 
-  String getName(int rowNum, int colNum) {
-    return getEntry(rowNum, colNum);
+  int getName(String name) {
+    for(int i=1; i<5000; i++) {
+      if(name.toLowerCase() == getEntry(i, 3).toLowerCase()) {
+        return i; // i is the row containing the game information
+      }
+    }
+    return -1; // game not found
   }
 
-  void setData(int rowNum, int colNum) {
-    String name = getEntry(rowNum, colNum);
-    String rank = '';
+  void setGameInfo(int row) { // input getName as parameter
+      rank = getEntry(row, 0);
+      URL = getEntry(row, 1);
+      gameID = getEntry(row, 2);
+      gameName = getEntry(row, 3);
+      minPlayers = getEntry(row, 4);
+      maxPlayers = getEntry(row, 5);
+      avgTime = getEntry(row, 6);
+      minTime = getEntry(row, 7);
+      maxTime = getEntry(row, 8);
+      year = getEntry(row, 9);
+      restOfString = "\nRank: " + rank + "\nMinimum Players: " + minPlayers +
+          "\nMaximum Players: " + maxPlayers + "\nAverage Time: " + avgTime + "\nMinimum Time: " + minTime +
+          "\nMaximum Time: " + maxTime + "\nYear Released: " + year;
   }
 
   @override
@@ -87,23 +111,12 @@ class _SearchScreen extends State<SearchScreen> {
         body: Column(
             children:<Widget>[
               Padding(
-                padding: const EdgeInsets.only(left: 10, right: 210, top: 10, bottom: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: TextFormField(
                   controller: nameInput,
-                  decoration: InputDecoration(
-                    hintText: 'Game Name',
-                    contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20.0),
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 210, right: 10, top: 10, bottom: 10),
-                child: TextFormField(
-                  controller: minPlayerInput,
-                  decoration: InputDecoration(
-                    hintText: 'Mininum Number of Players',
-                    contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20.0),
+                  decoration: const InputDecoration(
+                    hintText: 'Game Search',
+                    contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20.0),
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -111,11 +124,14 @@ class _SearchScreen extends State<SearchScreen> {
               Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                   child:ElevatedButton(
-                    child: Text('Submit'),
+                    child: Text('Search'),
                     onPressed: () {
-                      nameText = nameInput.text;
-                      minPlayerText = minPlayerInput.text;
-                      setData(1, 1);
+                      if(getName(nameInput.text) == -1) { // Game not found
+                        gameName = 'Game not found';
+                      }
+                      else { // Game found
+                        setGameInfo(getName(nameInput.text));
+                      }
                     },
                   )
               ),
@@ -135,7 +151,7 @@ class _SearchScreen extends State<SearchScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                 child: Text(
-                  "im playing " + exampleText,
+                  "Game: " + gameName + restOfString,
                   textAlign: TextAlign.center,
                   //overflow: TextOverflow.ellipsis,
                   textScaleFactor: 0.9,
