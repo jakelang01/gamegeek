@@ -36,6 +36,13 @@ class _VideosScreenState extends State<VideosScreen> {
     }
   }
 
+  Future<void> seeOtherVideos() async {
+    QuerySnapshot searchResult = await videoDB.where('game',isEqualTo: 'other_videos').get();
+    results = searchResult.docs;
+    numOfResults = results.length;
+    seeResults();
+  }
+
   Future<void> search(String target) async {
     QuerySnapshot searchResult = await videoDB.where('game',isEqualTo: target.toLowerCase()).get();
     results = searchResult.docs;
@@ -93,6 +100,14 @@ class _VideosScreenState extends State<VideosScreen> {
                 child: Text('See Results'),
                 onPressed: () {
                   seeResults();
+                },
+              ),
+            ),
+            Padding(padding: EdgeInsets.only(left: 15,right: 270,top: 10),
+              child: ElevatedButton(
+                child: Text('Other Videos'),
+                onPressed: () {
+                  seeOtherVideos();
                 },
               ),
             ),
