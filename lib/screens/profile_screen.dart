@@ -18,7 +18,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   // need to be in user's database document
   //TODO: Get data for logged in user from db on build
   //TODO: Update relevant field on button press
-  Map<String,String> userData = {"name":"","age":"","location":"","favorite":""};
+  Map<String,String> userData = {"name":"","birthday":"","location":"","favorite":""};
   final userDB = FirebaseFirestore.instance.collection('Users');
   String username = "exampleUsername"; // change these to reflect logged in user
   String password = "password";
@@ -28,7 +28,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     QueryDocumentSnapshot userDoc = userQuery.docs.elementAt(0);
     setState(() {
       userData["name"] = userDoc.get("name");
-      userData["age"] = userDoc.get("age");
+      userData["birthday"] = userDoc.get("birthday");
       userData["location"] = userDoc.get("location");
       userData["favorite"] = userDoc.get("favorite");
     });
@@ -47,7 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child:ElevatedButton(
                   child: Text('Edit',),
                   onPressed: (){
-                    editField(field);
+                    editBox(context, field);
                     },
                 ),
               ),
@@ -56,8 +56,49 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  void editField(String field) {
-    print(field);
+  Future<void> editBox(BuildContext context, String field) async {
+    TextEditingController controller = TextEditingController();
+
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Change $field:'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  child: TextField(
+                    controller: controller,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'New $field',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            ElevatedButton(
+              child: const Text('Submit'),
+              onPressed: () async {
+                editField(field, controller.value.text);
+              }
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void editField(String field, String newValue) {
+    userDB.doc(username).update({field:newValue});
+    setState(() {
+      userData[field] = newValue;
+    });
   }
 
   @override
@@ -71,7 +112,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         body: Center(child: ListView(
           children: <Widget>[
             createProfileRow("Name: " + (userData["name"] as String), "name"),
-            createProfileRow("Age: " + (userData["age"] as String),"age"),
+            createProfileRow("Birthday: " + (userData["birthday"] as String),"birthday"),
             createProfileRow("Location: " + (userData["location"] as String),"location"),
             createProfileRow("Favorite Game: " + (userData["favorite"] as String),"favorite"),
           ],
