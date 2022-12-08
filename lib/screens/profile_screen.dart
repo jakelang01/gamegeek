@@ -22,7 +22,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final userDB = FirebaseFirestore.instance.collection('Users');
   String username = "exampleUsername"; // change these to reflect logged in user
   String password = "password";
-  
+
+  // user should be logged in at this point, but I wanted to mess with queries
   Future<void> getData() async {
     QuerySnapshot<Map<String,dynamic>> userQuery = await userDB.where("username",isEqualTo: username).where("password",isEqualTo: password).get();
     QueryDocumentSnapshot userDoc = userQuery.docs.elementAt(0);
@@ -34,7 +35,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
+  @override
   void initState() {
+    super.initState();
     getData();
   }
 

@@ -47,10 +47,21 @@ class _MyAppState extends State<MyApp> {
                   colorScheme: ColorScheme.fromSwatch(
                     primarySwatch: Colors.brown,
                   ),
-                  textTheme: TextTheme(
+                  scaffoldBackgroundColor: Colors.white,
+                  dividerColor: Colors.black,
+                  textTheme: const TextTheme(
                     bodyText1: TextStyle(
                       color: Colors.black,
                       fontSize: 18
+                    ),
+                    bodyText2: TextStyle(
+                        color: Colors.brown,
+                        fontSize: 18
+                    ),
+                    headline1: TextStyle(
+                        color: Colors.black,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold
                     ),
                   ),
                 ),
@@ -59,10 +70,20 @@ class _MyAppState extends State<MyApp> {
                     primarySwatch: Colors.brown,
                   ),
                   scaffoldBackgroundColor: Colors.grey.shade900,
-                    textTheme: TextTheme(
+                  dividerColor: Colors.grey.shade400,
+                    textTheme:  TextTheme(
                         bodyText1: TextStyle(
                             color: Colors.grey.shade400,
                             fontSize: 18
+                        ),
+                      bodyText2: const TextStyle(
+                          color: Colors.brown,
+                          fontSize: 18
+                      ),
+                        headline1: TextStyle(
+                            color: Colors.grey.shade400,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold
                         ),
                     ),
                 ),
