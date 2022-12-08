@@ -5,6 +5,8 @@ import 'package:csv/csv.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 
+import 'package:game_geek/screens/advanced_search_screen.dart';
+
 class SearchScreen extends StatefulWidget {
   @override
   _SearchScreen createState() => _SearchScreen();
@@ -114,6 +116,19 @@ class _SearchScreen extends State<SearchScreen> {
                       nameText = nameInput.text;
                       minPlayerText = minPlayerInput.text;
                       setData(1, 1);
+                    },
+                  )
+              ),
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  child:ElevatedButton(
+                    child: Text('Advanced Search'),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                return AdvancedSearchScreen(title: 'Advanced Search', key: const Key("advanced search"));
+                              }));
                     },
                   )
               ),
