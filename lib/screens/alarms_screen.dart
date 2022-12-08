@@ -53,7 +53,9 @@ class _AlarmScreen extends State<AlarmScreen>{
         title: Text("Game Alarms"),
         actions: <Widget>[],
       ),
-    backgroundColor: Colors.white,
+    //backgroundColor: Theme.of(context).backgroundColor,
+    //backgroundColor: Color.fromARGB(255, 82, 0, 0),
+      backgroundColor: Colors.white,
     body: Column(
         //mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -61,7 +63,7 @@ class _AlarmScreen extends State<AlarmScreen>{
             padding: EdgeInsets.only(top: 16, bottom: 8),
             child: Text(
               "Select your alarm time here: ",
-              //style: ,
+              style: TextStyle(fontSize: 20),
             ),
           ),
           Padding(
