@@ -11,6 +11,8 @@ TextEditingController nSides = TextEditingController(text: "6");
 
 class _UtilsScreen extends State<UtilsScreen> {
 
+  int incr = 1;
+
   @override
   initState() {
     super.initState();
@@ -26,15 +28,89 @@ class _UtilsScreen extends State<UtilsScreen> {
       body: Column(
         children: <Widget>[
           const Padding(
-            padding: EdgeInsets.only(top: 8, bottom: 64, left: 8, right: 8),
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
             child: Text(
               "Incrementer"
             ),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              const SizedBox(
+                width: 16,
+              ),
+              Expanded(
+                child: ElevatedButton(
+                  child: const Text(
+                    "-10",
+                    //style: ,
+                  ),
+                  onPressed: (){
+                    incr += -10;
+                    setState(() {
+                      Object redrawObject = Object();
+                    });
+                  },
+                ),
+              ),
+              Expanded(
+                child: ElevatedButton(
+                  child: const Text(
+                    "-1",
+                  ),
+                  onPressed: (){
+                    incr += -1;
+                    setState(() {
+                      Object redrawObject = Object();
+                    });
+                  },
+                ),
+              ),
+              const Spacer(),
+              Expanded(
+                child: Text(
+                  "$incr",
+                ),
+              ),
+              //Spacer(),
+              Expanded(
+                child: ElevatedButton(
+                  child: const Text(
+                    "+1",
+                  ),
+                  onPressed: (){
+                    incr += 1;
+                    setState(() {
+                      Object redrawObject = Object();
+                    });
+                  },
+                ),
+              ),
+              Expanded(
+                child: ElevatedButton(
+                  child: const Text(
+                    "+10",
+                  ),
+                  onPressed: (){
+                    incr += 10;
+                    setState(() {
+                      Object redrawObject = Object();
+                    });
+                  },
+                ),
+              ),
+              const SizedBox(
+                width: 16,
+              ),
+            ],
+            //-10, -1, Display, +1, +10
+          ),
+          //Spacer(),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 32),
             child: ElevatedButton(
-              child: Text("Dice Roller"),
+              child: const Text("Dice Roller"),
               onPressed: (){
                 Navigator.of(context).push(
                     MaterialPageRoute(
@@ -59,6 +135,7 @@ class _DiceRollerScreen extends State<DiceRollerScreen> {
 
   int nDiceInt = 3;
   int nSidesInt = 6;
+  String rolled = "0";
 
   @override
   initState() {
@@ -68,45 +145,77 @@ class _DiceRollerScreen extends State<DiceRollerScreen> {
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dice Roller'),
+        title: const Text('Dice Roller'),
         centerTitle: true,
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-           Padding(
-            padding: const EdgeInsets.all(8),
-            child: TextFormField(
-              //initialValue: "1",
-              controller: nDice,
-              keyboardType: TextInputType.number,
-            ),
+          const Padding(
+            padding: EdgeInsets.only(top: 64),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: const <Widget>[
+              Text(
+                "Number Of Dice"
+              ),
+              Padding(
+                padding: EdgeInsets.only(right: 8),
+              ),
+              Text(
+                "Number of Sides"
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              const Padding(
+                padding: EdgeInsets.only(right: 32),
+              ),
+              Expanded(
+                child: TextFormField(
+                  controller: nDice,
+                  keyboardType: TextInputType.number,
+                  textAlign: TextAlign.center
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(right: 64),
+              ),
+              Expanded(
+                child: TextFormField(
+                  controller: nSides,
+                  keyboardType: TextInputType.number,
+                  textAlign: TextAlign.center
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(right: 32),
+              ),
+            ],
           ),
           Padding(
-            padding: const EdgeInsets.all(8),
-            child: TextFormField(
-              //initialValue: "6",
-              controller: nSides,
-              keyboardType: TextInputType.number,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.only(top: 32, bottom: 8),
             child: ElevatedButton(
-              child: Text("Roll!"),
+              child: const Text("Roll!"),
               onPressed: (){
                 nDiceInt = int.parse(nDice.text);
                 nSidesInt = int.parse(nSides.text);
-                //print(roller(nDiceInt, nSidesInt));
-                Object object = Object();
+                rolled = roller(nDiceInt, nSidesInt);
+                setState(() {
+                  Object redrawObject = Object();
+                });
               }
-            )
-          ),
-          Padding(
-            padding: EdgeInsets.all(8),
-            child: Text(
-              roller(nDiceInt, nSidesInt),
             ),
-          ),
+         ),
+         Padding(
+           padding: const EdgeInsets.all(8),
+           child: Text(
+             "Result: $rolled",
+           ),
+         ),
         ],
       ),
     );
