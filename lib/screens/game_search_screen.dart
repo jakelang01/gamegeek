@@ -4,7 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
-
 import 'package:game_geek/screens/advanced_search_screen.dart';
 
 class SearchScreen extends StatefulWidget {

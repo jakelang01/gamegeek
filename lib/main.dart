@@ -161,7 +161,7 @@ class HamburgerDir extends StatelessWidget {
               },
           ),
           ListTile(
-              title: Text('Game Screen',
+              title: Text('Game Search',
                 style: Theme.of(context).textTheme.button,
               ),
               onTap: (){
