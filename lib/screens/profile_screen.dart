@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'package:game_geek/main.dart';
 
 class ProfileScreen extends StatefulWidget {
 
@@ -20,13 +21,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   //TODO: Update relevant field on button press
   Map<String,String> userData = {"name":"","birthday":"","location":"","favorite":""};
   final userDB = FirebaseFirestore.instance.collection('Users');
-  String username = "exampleUsername"; // change these to reflect logged in user
+  //String user = "exampleUsername"; // change these to reflect logged in user
   String password = "password";
 
-  // user should be logged in at this point, but I wanted to mess with queries
+  // username
   Future<void> getData() async {
-    QuerySnapshot<Map<String,dynamic>> userQuery = await userDB.where("username",isEqualTo: username).where("password",isEqualTo: password).get();
-    QueryDocumentSnapshot userDoc = userQuery.docs.elementAt(0);
+    DocumentSnapshot userDoc = await userDB.doc(MyApp.of(context).getUser()).get();
     setState(() {
       userData["name"] = userDoc.get("name");
       userData["birthday"] = userDoc.get("birthday");
@@ -38,6 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
+    //user = MyApp.of(context).getUser();
     getData();
   }
 
@@ -98,7 +99,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void editField(String field, String newValue) {
-    userDB.doc(username).update({field:newValue});
+    userDB.doc(MyApp.of(context).getUser()).update({field:newValue});
     setState(() {
       userData[field] = newValue;
     });

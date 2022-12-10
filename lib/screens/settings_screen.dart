@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
 import 'profile_screen.dart';
+import 'login_screen.dart';
 import 'dart:convert';
 
 class SettingsScreen extends StatefulWidget {
@@ -15,6 +16,18 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+
+  void logOut() {
+    MyApp.of(context).setUser('');
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+    /* Navigator.of(context).push(
+        MaterialPageRoute(
+            builder: (BuildContext context){
+              return LoginScreen();
+            })); */
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +81,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: ElevatedButton(
                 child: Text('Log Out'),
                 onPressed: () {
-                  print('no');
+                  logOut();
                 },
               ),
             ),

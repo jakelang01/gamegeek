@@ -26,11 +26,28 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
 
   ThemeMode _themeMode = ThemeMode.system;
+  String user = "exampleUsername"; // username of currently logged in user
 
   void changeTheme(ThemeMode newMode) {
     setState(() {
       _themeMode = newMode;
     });
+  }
+
+  // get logged in user
+  String getUser() {
+    return user;
+  }
+
+  // change logged in user e.g. MyApp.of(context).setUser('exampleUsername');
+  void setUser(String newUser) {
+    user = newUser;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setUser('exampleUsername');
   }
 
   // This widget is the root of your application.
