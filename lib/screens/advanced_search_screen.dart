@@ -5,6 +5,7 @@ import 'package:csv/csv.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 
+final databaseReference = FirebaseFirestore.instance.collection("Data");
 
 class AdvancedSearchScreen extends StatefulWidget {
 
@@ -16,98 +17,149 @@ class AdvancedSearchScreen extends StatefulWidget {
 
 class _AdvancedSearchScreen extends State<AdvancedSearchScreen> {
 
-  List<List<String>>? rawData;
-  String dataFilePath = 'assets/bgg_db_2018_01.csv';
-  String exampleText = '';
+  int rank = 0;
+  String URL = '';
+  String gameName = '';
+  int minPlayers = 0;
+  int maxPlayers = 0;
+  int avgTime = 0;
+  int year = 0;
+  double rating = 0;
   String nameText = '';
-  String minPlayerText = '';
   TextEditingController nameInput = TextEditingController();
-  TextEditingController minPlayerInput = TextEditingController();
-  TextEditingController maxPlayerInput = TextEditingController();
-  TextEditingController avgTimeInput = TextEditingController();
 
-  Future<void> readDataFile() async {
-    var bytes = await rootBundle.load(dataFilePath);
-    String bytesAsString = utf8.decode(bytes.buffer.asUint8List());
-    rawData = const CsvToListConverter().convert(bytesAsString);
+  Future<int> getRank(String name) async {
+    String nameDoc = name;
+    DocumentSnapshot data = await databaseReference.doc(nameDoc).get();
+    int thing = data.get('rank');
+    return Future.value(thing);
   }
 
-  List<String> getRow(int rowNum) {
-    return rawData![rowNum];
+  Future<String> getURL(String name) async {
+    String nameDoc = name;
+    DocumentSnapshot data = await databaseReference.doc(nameDoc).get();
+    String thing = data.get('bgg_url');
+    return Future.value(thing);
   }
 
-  String getEntry(int rowNum, int colNum) {
-    return getRow(rowNum)[colNum];
+  Future<double> getAvgRating(String name) async {
+    String nameDoc = name;
+    DocumentSnapshot data = await databaseReference.doc(nameDoc).get();
+    double thing = data.get('avg_rating');
+    return Future.value(thing);
   }
 
-  String getName(int rowNum, int colNum) {
-    return getEntry(rowNum, colNum);
+  Future<int> getMinPlayers(String name) async {
+    String nameDoc = name;
+    DocumentSnapshot data = await databaseReference.doc(nameDoc).get();
+    int thing = data.get('min_players');
+    return Future.value(thing);
   }
 
-  void setData(int rowNum, int colNum) {
-    String name = getEntry(rowNum, colNum);
-    String rank = '';
+  Future<int> getMaxPlayers(String name) async {
+    String nameDoc = name;
+    DocumentSnapshot data = await databaseReference.doc(nameDoc).get();
+    int thing = data.get('max_players');
+    return Future.value(thing);
+  }
+
+  Future<int> getAvgTime(String name) async {
+    String nameDoc = name;
+    DocumentSnapshot data = await databaseReference.doc(nameDoc).get();
+    int thing = data.get('max_players');
+    return Future.value(thing);
+  }
+
+  Future<int> getYear(String name) async {
+    String nameDoc = name;
+    DocumentSnapshot data = await databaseReference.doc(nameDoc).get();
+    int thing = data.get('max_players');
+    return Future.value(thing);
+  }
+
+  Future<void> setGameInfo(String name) async {
+    var rankData = await getRank(name);
+    var urlData = await getURL(name);
+    var minPlayersData = await getMinPlayers(name);
+    var maxPlayersData = await getMaxPlayers(name);
+    var avgTimeData = await getAvgTime(name);
+    var yearData = await getYear(name);
+    var ratingData = await getAvgRating(name);
+
+    setState(() {
+      rank = rankData;
+      URL = urlData;
+      gameName = name;
+      minPlayers = minPlayersData;
+      maxPlayers = maxPlayersData;
+      avgTime = avgTimeData;
+      year = yearData;
+      rating = ratingData;
+    });
   }
 
   @override
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Game Geek Search'),
-          centerTitle: true,
+      appBar: AppBar(
+        title: Text('Game Geek Search'),
+        centerTitle: true,
+      ),
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  child: TextFormField(
+                    controller: nameInput,
+                    decoration: const InputDecoration(
+                      hintText: 'Game Search',
+                      contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20.0),
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    child: ElevatedButton(
+                      child: Text('Search'),
+                      onPressed: () {
+                        nameText = nameInput.text;
+                        setGameInfo(nameText);
+                      },
+                    )
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  child: Center(
+                    child: Text(
+                      'Name: $gameName'
+                          '\nRank: $rank'
+                          '\nURL: $URL'
+                          '\nYear Released: $year'
+                          '\nRating: $rating'
+                          '\nAverage Time: $avgTime'
+                          '\nMinimum Players: $minPlayers'
+                          '\nMaximum Players: $maxPlayers',
+                      textAlign: TextAlign.center,
+                      //overflow: TextOverflow.ellipsis,
+                      textScaleFactor: 0.5,
+                      style: Theme.of(context).textTheme.headline2,
+                    ),
+                  ),
+                ),
+              ]
+          ),
         ),
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: Column(
-            children:<Widget>[
-              Padding(
-                padding: const EdgeInsets.only(left: 10, right: 210, top: 10, bottom: 10),
-                child: TextFormField(
-                  controller: nameInput,
-                  decoration: InputDecoration(
-                    hintText: 'Game Name',
-                    contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20.0),
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 210, right: 10, top: 10, bottom: 10),
-                child: TextFormField(
-                  controller: minPlayerInput,
-                  decoration: InputDecoration(
-                    hintText: 'Mininum Number of Players',
-                    contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20.0),
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-              ),
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                  child:ElevatedButton(
-                    child: Text('Submit'),
-                    onPressed: () {
-                      nameText = nameInput.text;
-                      minPlayerText = minPlayerInput.text;
-                      setData(1, 1);
-                    },
-                  )
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                child: Text(
-                  "im playing " + exampleText,
-                  textAlign: TextAlign.center,
-                  //overflow: TextOverflow.ellipsis,
-                  textScaleFactor: 0.9,
-                  style: Theme.of(context).textTheme.headline2,
-                ),
-              ),
-            ]
-        )
+      ),
     );
   }
 }

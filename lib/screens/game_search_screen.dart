@@ -110,7 +110,7 @@ class _SearchScreen extends State<SearchScreen> {
         ),
         backgroundColor: Theme.of(context).backgroundColor,
         body: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(8),
               child: SingleChildScrollView(
                 child: Column(
                   children:<Widget>[
@@ -126,7 +126,7 @@ class _SearchScreen extends State<SearchScreen> {
                       ),
                     ),
                     Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                         child:ElevatedButton(
                           child: Text('Search'),
                           onPressed: () {
@@ -136,7 +136,7 @@ class _SearchScreen extends State<SearchScreen> {
                         )
                     ),
                     Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                         child:ElevatedButton(
                           child: Text('Advanced Search'),
                           onPressed: () {
@@ -149,19 +149,26 @@ class _SearchScreen extends State<SearchScreen> {
                         )
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                      child: Text(
-                        'Name: $gameName' + '\nRank: $rank' + '\nURL: $URL' + '\nYear Released: $year' +
-                            '\nRating: $rating' + '\nAverage Time: $avgTime' + '\nMinimum Players: $minPlayers' + '\nMaximum Players: $maxPlayers',
-                        textAlign: TextAlign.center,
-                        //overflow: TextOverflow.ellipsis,
-                        textScaleFactor: 0.5,
-                        style: Theme.of(context).textTheme.headline2,
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                      child: Center(
+                        child: Text(
+                          'Name: $gameName'
+                              '\nRank: $rank'
+                              '\nURL: $URL'
+                              '\nYear Released: $year'
+                              '\nRating: $rating'
+                              '\nAverage Time: $avgTime'
+                              '\nMinimum Players: $minPlayers'
+                              '\nMaximum Players: $maxPlayers',
+                          textAlign: TextAlign.center,
+                          //overflow: TextOverflow.ellipsis,
+                          textScaleFactor: 0.5,
+                          style: Theme.of(context).textTheme.headline2,
+                        ),
                       ),
                     ),
                   ]
                 ),
-
               ),
             ),
     );
