@@ -24,13 +24,14 @@ class _UtilsScreen extends State<UtilsScreen> {
         title: Text('Game Utilities'),
         centerTitle: false,
       ),
-      backgroundColor: Colors.white,
+      //backgroundColor: Colors.white,
       body: Column(
         children: <Widget>[
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
             child: Text(
-              "Incrementer"
+              "Incrementer",
+              style: Theme.of(context).textTheme.bodyText2,
             ),
           ),
           Row(
@@ -44,7 +45,7 @@ class _UtilsScreen extends State<UtilsScreen> {
                 child: ElevatedButton(
                   child: const Text(
                     "-10",
-                    //style: ,
+                    style: TextStyle(fontSize: 16),
                   ),
                   onPressed: (){
                     incr += -10;
@@ -91,6 +92,7 @@ class _UtilsScreen extends State<UtilsScreen> {
                 child: ElevatedButton(
                   child: const Text(
                     "+10",
+                    style: TextStyle(fontSize: 16),
                   ),
                   onPressed: (){
                     incr += 10;

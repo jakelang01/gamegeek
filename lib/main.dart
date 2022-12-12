@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
                   colorScheme: ColorScheme.fromSwatch(
                     primarySwatch: Colors.brown,
                   ),
-                  scaffoldBackgroundColor: Colors.white,
+                  scaffoldBackgroundColor: const Color.fromRGBO(210, 180, 140, 1),
                   dividerColor: Colors.black,
                   textTheme: const TextTheme(
                     bodyText1: TextStyle(
@@ -84,32 +84,64 @@ class _MyAppState extends State<MyApp> {
                         fontSize: 24,
                         fontWeight: FontWeight.bold
                     ),
+                    headline2: TextStyle(
+                        color: Colors.brown,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold
+                    ),
+                    headline5: TextStyle(  //using headline5 as drawer buttons because button has already been defined and it messes up a lot of things
+                      shadows: [
+                        Shadow(
+                            color: Colors.brown,
+                            offset: Offset(0, -5))
+                      ],
+                        color: Colors.transparent,
+                        fontSize: 20,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.brown,
+                        decorationThickness: 2,
+                    ),
                   ),
+                  canvasColor: const Color.fromRGBO(210, 180, 140, 1),
                 ),
                 darkTheme: ThemeData(
                   colorScheme: ColorScheme.fromSwatch(
                     primarySwatch: Colors.brown,
                   ),
-                  scaffoldBackgroundColor: Colors.grey.shade900,
+                  scaffoldBackgroundColor: Colors.brown.shade900,
                   dividerColor: Colors.grey.shade400,
+                    canvasColor: Colors.brown.shade900,
                     textTheme:  TextTheme(
                       bodyText1: TextStyle(
                           color: Colors.grey.shade400,
                           fontSize: 18
                       ),
-                      bodyText2: const TextStyle(
-                          color: Colors.brown,
+                      bodyText2: TextStyle(
+                          color: Colors.brown.shade100,
                           fontSize: 18
                       ),
                       headline1: TextStyle(
-                          color: Colors.grey.shade400,
+                          color: Colors.brown.shade100,
                           fontSize: 24,
                           fontWeight: FontWeight.bold
+                      ),
+                      headline5: TextStyle(
+                        shadows: [
+                          Shadow(
+                              color: Colors.brown.shade100,
+                              offset: Offset(0, -5))
+                        ],
+                        color: Colors.transparent,
+                        fontSize: 20,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.brown.shade100,
+                        decorationThickness: 2,
                       ),
                     ),
                 ),
                 themeMode: _themeMode,
                 home: const LoginScreen(),
+                // home: const MyHomePage(title: 'Gamerbase'),
             );
           }
           Widget loading = MaterialApp();
@@ -132,17 +164,65 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[],
-        ),
-      ),
-      drawer: HamburgerDir(),
+    return Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/img/checkered.jpg"), //background img
+                fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              title: Text(widget.title),
+            ),
+            body: Column(
+              //mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 32, left: 64, right: 52),
+                  child: Stack(
+                    children: <Widget>[
+                      // Stroked text as border.
+                      Text(
+                        'Welcome To Gamerbase!',
+                        style: TextStyle(
+                          fontSize: 48,
+                          foreground: Paint()
+                            ..style = PaintingStyle.stroke
+                            ..strokeWidth = 6
+                            ..color = const Color.fromARGB(70, 255, 255, 255),
+                        ),
+                      ),
+                      // Solid text as fill.
+                      const Text(
+                        'Welcome To Gamerbase!',
+                        style: TextStyle(
+                          fontSize: 48,
+                          color: Colors.brown,
+                        ),
+                      ),
+                    ],
+                  )
+                ),
+                Container(
+                  height: 500,
+                  width: 800,
+                  alignment: Alignment.center,
+                  child:
+                  Image.asset('assets/img/queen.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ],
+            ),
+            drawer: HamburgerDir(),
+          )
+       ]
     );
   }
 }
@@ -158,7 +238,7 @@ class HamburgerDir extends StatelessWidget {
         children: [
           ListTile(
             title: Text('Game Alarm',
-              style: Theme.of(context).textTheme.button,
+              style: Theme.of(context).textTheme.headline5,
             ),
             onTap: (){
               Navigator.of(context).push(
@@ -169,20 +249,8 @@ class HamburgerDir extends StatelessWidget {
             }
           ),
           ListTile(
-            title: Text('Login Screen',
-              style: Theme.of(context).textTheme.button,
-            ),
-            onTap:(){
-              Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context){
-                  return LoginScreen();
-                }));
-              },
-          ),
-          ListTile(
               title: Text('Game Search',
-                style: Theme.of(context).textTheme.button,
+                style: Theme.of(context).textTheme.headline5,
               ),
               onTap: (){
                 Navigator.of(context).push(
@@ -194,7 +262,7 @@ class HamburgerDir extends StatelessWidget {
           ),
           ListTile(
             title: Text('Videos',
-              style: Theme.of(context).textTheme.button,
+              style: Theme.of(context).textTheme.headline5,
             ),
             onTap: (){
               Navigator.of(context).push(
@@ -205,11 +273,23 @@ class HamburgerDir extends StatelessWidget {
             },
           ),
           ListTile(
+            title: Text('Game Utilities',
+              style: Theme.of(context).textTheme.headline5,
+            ),
+            onTap: (){
+              Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (BuildContext context){
+                        return UtilsScreen();
+                      }));
+            },
+          ),
+          ListTile(
             title: Text('Settings',
                 style: Theme
                     .of(context)
                     .textTheme
-                    .button
+                    .headline5
             ),
             onTap: () {
               Navigator.of(context).push(
@@ -220,14 +300,14 @@ class HamburgerDir extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text('Game Utilities',
-              style: Theme.of(context).textTheme.button,
+            title: Text('Login Screen',
+              style: Theme.of(context).textTheme.headline5,
             ),
-            onTap: (){
+            onTap:(){
               Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (BuildContext context){
-                        return UtilsScreen();
+                        return LoginScreen();
                       }));
             },
           ),

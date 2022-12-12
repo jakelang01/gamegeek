@@ -30,7 +30,7 @@ class _AlarmScreen extends State<AlarmScreen>{
     String fix = controller.text;
     List fixHour = controller.text.split(":");
     int h = int.parse(fixHour[0]);
-    print(h);
+    //print(h);
     return h;
   }
 
@@ -38,7 +38,7 @@ class _AlarmScreen extends State<AlarmScreen>{
     String fix = controller.text;
     List fixMin = fix.split(":");
     int min = int.parse(fixMin[1]);
-    print(min);
+    //print(min);
     return min;
   }
 
@@ -55,7 +55,7 @@ class _AlarmScreen extends State<AlarmScreen>{
       ),
     //backgroundColor: Theme.of(context).backgroundColor,
     //backgroundColor: Color.fromARGB(255, 82, 0, 0),
-      backgroundColor: Colors.white,
+    //backgroundColor: Colors.white,
     body: Column(
         //mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
