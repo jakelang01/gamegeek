@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'dart:convert';
 
 final databaseReference = FirebaseFirestore.instance.collection("Data");
+const int searchLimit = 10; // change this to change the number of results displayed
 
 class AdvancedSearchScreen extends StatefulWidget {
 
@@ -26,76 +27,81 @@ class _AdvancedSearchScreen extends State<AdvancedSearchScreen> {
   int year = 0;
   double rating = 0;
   String nameText = '';
-  TextEditingController nameInput = TextEditingController();
+  TextEditingController numInput = TextEditingController();
 
-  Future<int> getRank(String name) async {
-    String nameDoc = name;
-    DocumentSnapshot data = await databaseReference.doc(nameDoc).get();
-    int thing = data.get('rank');
-    return Future.value(thing);
+  List<Widget> results = [];
+
+  // searchLimit games that allow at least num players
+  Future<void> numPlayerSearch(int num) async {
+    QuerySnapshot searchResult = await databaseReference
+        // .where('min_players',isLessThanOrEqualTo: num) // can only have one of these for some reason
+        .where('max_players',isGreaterThanOrEqualTo: num)
+        // .orderBy('avg_rating') // also can't do this it turns out.
+        .limit(searchLimit).get();
+    List<DocumentSnapshot> resultDocs = searchResult.docs;
+    results = [];
+    int i = 1;
+    for (var doc in resultDocs) {
+      results.add(createResult(doc,i));
+      i++;
+    }
+    setState(() {});
   }
 
-  Future<String> getURL(String name) async {
-    String nameDoc = name;
-    DocumentSnapshot data = await databaseReference.doc(nameDoc).get();
-    String thing = data.get('bgg_url');
-    return Future.value(thing);
+  // searchLimit shortest games
+  Future<void> ascTimeSearch() async {
+    QuerySnapshot searchResult = await databaseReference
+        .orderBy('avg_time').limit(searchLimit).get();
+    List<DocumentSnapshot> resultDocs = searchResult.docs;
+    results = [];
+    int i = 1;
+    for (var doc in resultDocs) {
+      results.add(createResult(doc,i));
+      i++;
+    }
+    setState(() {});
   }
 
-  Future<double> getAvgRating(String name) async {
-    String nameDoc = name;
-    DocumentSnapshot data = await databaseReference.doc(nameDoc).get();
-    double thing = data.get('avg_rating');
-    return Future.value(thing);
+  // searchLimit longest games
+  Future<void> descTimeSearch() async {
+    QuerySnapshot searchResult = await databaseReference
+        .orderBy('avg_time',descending: true).limit(searchLimit).get();
+    List<DocumentSnapshot> resultDocs = searchResult.docs;
+    results = [];
+    int i = 1;
+    for (var doc in resultDocs) {
+      results.add(createResult(doc,i));
+      i++;
+    }
+    setState(() {});
   }
 
-  Future<int> getMinPlayers(String name) async {
-    String nameDoc = name;
-    DocumentSnapshot data = await databaseReference.doc(nameDoc).get();
-    int thing = data.get('min_players');
-    return Future.value(thing);
-  }
-
-  Future<int> getMaxPlayers(String name) async {
-    String nameDoc = name;
-    DocumentSnapshot data = await databaseReference.doc(nameDoc).get();
-    int thing = data.get('max_players');
-    return Future.value(thing);
-  }
-
-  Future<int> getAvgTime(String name) async {
-    String nameDoc = name;
-    DocumentSnapshot data = await databaseReference.doc(nameDoc).get();
-    int thing = data.get('max_players');
-    return Future.value(thing);
-  }
-
-  Future<int> getYear(String name) async {
-    String nameDoc = name;
-    DocumentSnapshot data = await databaseReference.doc(nameDoc).get();
-    int thing = data.get('max_players');
-    return Future.value(thing);
-  }
-
-  Future<void> setGameInfo(String name) async {
-    var rankData = await getRank(name);
-    var urlData = await getURL(name);
-    var minPlayersData = await getMinPlayers(name);
-    var maxPlayersData = await getMaxPlayers(name);
-    var avgTimeData = await getAvgTime(name);
-    var yearData = await getYear(name);
-    var ratingData = await getAvgRating(name);
-
-    setState(() {
-      rank = rankData;
-      URL = urlData;
-      gameName = name;
-      minPlayers = minPlayersData;
-      maxPlayers = maxPlayersData;
-      avgTime = avgTimeData;
-      year = yearData;
-      rating = ratingData;
-    });
+  Widget createResult(DocumentSnapshot doc, int docIndex) {
+    var name = doc.get('names');
+    var rankData = doc.get('rank');
+    var urlData = doc.get('bgg_url');
+    var minPlayersData = doc.get('min_players');
+    var maxPlayersData = doc.get('max_players');
+    var avgTimeData = doc.get('avg_time');
+    var yearData = doc.get('year');
+    var ratingData = doc.get('avg_rating');
+    return Center(
+      child: Text(
+        '-$docIndex-'
+        '\nName: $name'
+            '\nRank: $rankData'
+            '\nURL: $urlData'
+            '\nYear Released: $yearData'
+            '\nRating: $ratingData'
+            '\nAverage Time: $avgTimeData'
+            '\nMinimum Players: $minPlayersData'
+            '\nMaximum Players: $maxPlayersData\n',
+        textAlign: TextAlign.center,
+        //overflow: TextOverflow.ellipsis,
+        textScaleFactor: 0.75,
+        style: Theme.of(context).textTheme.headline1,
+      ),
+    );
   }
 
   @override
@@ -110,7 +116,7 @@ class _AdvancedSearchScreen extends State<AdvancedSearchScreen> {
         title: Text('Game Geek Search'),
         centerTitle: true,
       ),
-      backgroundColor: Theme.of(context).backgroundColor,
+      //backgroundColor: Theme.of(context).backgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -119,9 +125,9 @@ class _AdvancedSearchScreen extends State<AdvancedSearchScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                   child: TextFormField(
-                    controller: nameInput,
+                    controller: numInput,
                     decoration: const InputDecoration(
-                      hintText: 'Game Search',
+                      hintText: 'Number of Players',
                       contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20.0),
                       border: OutlineInputBorder(),
                     ),
@@ -132,29 +138,31 @@ class _AdvancedSearchScreen extends State<AdvancedSearchScreen> {
                     child: ElevatedButton(
                       child: Text('Search'),
                       onPressed: () {
-                        nameText = nameInput.text;
-                        setGameInfo(nameText);
+                        numPlayerSearch(int.parse(numInput.value.text));
+                      },
+                    )
+                ),
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                    child: ElevatedButton(
+                      child: Text('View highest average times'),
+                      onPressed: () {
+                        descTimeSearch();
+                      },
+                    )
+                ),
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    child: ElevatedButton(
+                      child: Text('View lowest average times'),
+                      onPressed: () {
+                        ascTimeSearch();
                       },
                     )
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                  child: Center(
-                    child: Text(
-                      'Name: $gameName'
-                          '\nRank: $rank'
-                          '\nURL: $URL'
-                          '\nYear Released: $year'
-                          '\nRating: $rating'
-                          '\nAverage Time: $avgTime'
-                          '\nMinimum Players: $minPlayers'
-                          '\nMaximum Players: $maxPlayers',
-                      textAlign: TextAlign.center,
-                      //overflow: TextOverflow.ellipsis,
-                      textScaleFactor: 0.5,
-                      style: Theme.of(context).textTheme.headline2,
-                    ),
-                  ),
+                  child: Column(children: results,)
                 ),
               ]
           ),

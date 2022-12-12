@@ -26,63 +26,15 @@ class _SearchScreen extends State<SearchScreen> {
   String nameText = '';
   TextEditingController nameInput = TextEditingController();
 
-  Future<int> getRank(String name) async {
-    String nameDoc = name;
-    DocumentSnapshot data =  await databaseReference.doc(nameDoc).get();
-    int thing = data.get('rank');
-    return Future.value(thing);
-  }
-
-  Future<String> getURL(String name) async {
-    String nameDoc = name;
-    DocumentSnapshot data =  await databaseReference.doc(nameDoc).get();
-    String thing = data.get('bgg_url');
-    return Future.value(thing);
-  }
-
-  Future<double> getAvgRating(String name) async {
-    String nameDoc = name;
-    DocumentSnapshot data =  await databaseReference.doc(nameDoc).get();
-    double thing = data.get('avg_rating');
-    return Future.value(thing);
-  }
-
-  Future<int> getMinPlayers(String name) async {
-    String nameDoc = name;
-    DocumentSnapshot data =  await databaseReference.doc(nameDoc).get();
-    int thing = data.get('min_players');
-    return Future.value(thing);
-  }
-
-  Future<int> getMaxPlayers(String name) async {
-    String nameDoc = name;
-    DocumentSnapshot data =  await databaseReference.doc(nameDoc).get();
-    int thing = data.get('max_players');
-    return Future.value(thing);
-  }
-
-  Future<int> getAvgTime(String name) async {
-    String nameDoc = name;
-    DocumentSnapshot data =  await databaseReference.doc(nameDoc).get();
-    int thing = data.get('max_players');
-    return Future.value(thing);
-  }
-
-  Future<int> getYear(String name) async {
-    String nameDoc = name;
-    DocumentSnapshot data =  await databaseReference.doc(nameDoc).get();
-    int thing = data.get('max_players');
-    return Future.value(thing);
-  }
-
   Future<void> setGameInfo(String name) async {
-    var rankData = await getRank(name);
-    var urlData = await getURL(name);
-    var minPlayersData = await getMinPlayers(name);
-    var maxPlayersData = await getMaxPlayers(name);
-    var avgTimeData = await getAvgTime(name);
-    var yearData = await getYear(name);
-    var ratingData = await getAvgRating(name);
+    DocumentSnapshot data =  await databaseReference.doc(name).get();
+    var rankData = data.get('rank');
+    var urlData = data.get('bgg_url');
+    var minPlayersData = data.get('min_players');
+    var maxPlayersData = data.get('max_players');
+    var avgTimeData = data.get('avg_time');
+    var yearData = data.get('year');
+    var ratingData = data.get('avg_rating');
 
     setState(() {
       rank = rankData;
@@ -108,7 +60,7 @@ class _SearchScreen extends State<SearchScreen> {
           title: Text('Game Geek Search'),
           centerTitle: true,
         ),
-        backgroundColor: Theme.of(context).backgroundColor,
+        //backgroundColor: Theme.of(context).backgroundColor,
         body: Padding(
             padding: const EdgeInsets.all(8),
               child: SingleChildScrollView(
@@ -162,8 +114,8 @@ class _SearchScreen extends State<SearchScreen> {
                               '\nMaximum Players: $maxPlayers',
                           textAlign: TextAlign.center,
                           //overflow: TextOverflow.ellipsis,
-                          textScaleFactor: 0.5,
-                          style: Theme.of(context).textTheme.headline2,
+                          textScaleFactor: 0.75,
+                          style: Theme.of(context).textTheme.headline1,
                         ),
                       ),
                     ),

@@ -64,7 +64,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ],
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 140,vertical: 5),
+              padding: EdgeInsets.symmetric(horizontal: 100,vertical: 5),
               child: ElevatedButton(
                 child: Text('View Profile'),
                 onPressed: () {
@@ -77,7 +77,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 140),
+              padding: EdgeInsets.symmetric(horizontal: 100),
               child: ElevatedButton(
                 child: Text('Log Out'),
                 onPressed: () {
