@@ -11,35 +11,106 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreen extends State<LoginScreen> {
 
   final userInfoDB = FirebaseFirestore.instance.collection('Users');
-  TextEditingController username = TextEditingController();
-  TextEditingController password = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  String username = "";
+  String password = "";
+  String errorMessage = "";
+  double errorMessageSize = 0.0;
 
   @override
   initState() {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: Column(
-        children: [
-          TextButton(
-            child: Text("test button",
-              style: Theme.of(context).textTheme.button
+      appBar: AppBar(
+      ),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: Center(
+        child: Column(
+          children: [
+            // just some padding
+            const Padding(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0)
             ),
-            onPressed: () async {
-
-            }
-          ),
-        ],
+            // headline for the login page
+            Text(
+              "Log in to Gamer App",
+              style: Theme.of(context).textTheme.headline1,
+            ),
+            // horizontal rule
+            Divider(
+              height: 15,
+              thickness: 2,
+              indent: 20,
+              endIndent: 20,
+              color: Theme.of(context).dividerColor,
+            ),
+            // username input box
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: TextField(
+                controller: usernameController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Username",
+                ),
+              ),
+            ),
+            // password input box
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: TextField(
+                controller: passwordController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Password",
+                ),
+              ),
+            ),
+            // error message text
+            Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: errorMessageSize),
+            ),
+            // login button
+            ElevatedButton(
+              child: const Text(
+                "Login",
+              ),
+              onPressed: () async {
+                String _username = usernameController.text;
+                String _password = passwordController.text;
+                if (await passwordIsValid(_username, _password)) {
+                  print("password worked");
+                }
+                else {
+                  print("password no worky");
+                }
+              },
+            ),
+            // new account button
+            ElevatedButton(
+              child: const Text(
+                "Create New Account",
+              ),
+              onPressed: () {
+              },
+            )
+          ],
+        ),
       ),
     );
   }
 
   Future<bool> usernameIsValid(String username) async {
-    // getting a document that doesnt exist returns an object with the "exists" property as false
+    if (username.isEmpty) {
+      return false;
+    }
+    // getting a document that doesn't exist returns an object with the "exists" property as false
     var userDocData = await userInfoDB.doc(username).get();
     if (userDocData.exists) {
       return true;
@@ -58,13 +129,27 @@ class _LoginScreen extends State<LoginScreen> {
     var hashedPassword = sha256.convert(passwordBytes);
     var userDocData = await userInfoDB.doc(username).get();
     var databasePassword = userDocData.get("password");
-    //print(hashedPassword.toString());
-    //print(databasePassword);
 
     if (hashedPassword.toString() == databasePassword) {
       return true;
     }
     return false;
+  }
+
+  // if message is empty, then the error message text is hidden
+  void setErrorMessage(String message) {
+    if (message.isEmpty) {
+      setState(() {
+        errorMessage = "";
+        errorMessageSize = 0.0;
+      });
+      return;
+    }
+    setState(() {
+      errorMessage = message;
+      errorMessageSize = 18.0;
+    });
+    return;
   }
 
   Future<void> createNewUser() async {
