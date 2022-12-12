@@ -47,7 +47,7 @@ class _SearchScreen extends State<SearchScreen> {
       rating = ratingData;
     });
   }
-  
+
   @override
   void initState() {
     super.initState();
@@ -56,73 +56,76 @@ class _SearchScreen extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Game Geek Search'),
-          centerTitle: true,
-        ),
-        //backgroundColor: Theme.of(context).backgroundColor,
-        body: Padding(
-            padding: const EdgeInsets.all(8),
-              child: SingleChildScrollView(
-                child: Column(
-                  children:<Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                      child: TextFormField(
-                        controller: nameInput,
-                        decoration: const InputDecoration(
-                          hintText: 'Game Search',
-                          contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20.0),
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
+      appBar: AppBar(
+        title: Text('Game Geek Search'),
+        centerTitle: true,
+      ),
+      //backgroundColor: Theme.of(context).backgroundColor,
+      body: Padding(
+        padding: const EdgeInsets.all(8),
+        child: SingleChildScrollView(
+          child: Column(
+              children:<Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  child: TextField(
+                    controller: nameInput,
+                    style: Theme.of(context).textTheme.bodyText1,
+                    decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).dividerColor)),
+                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.primary)),
+                        labelText: 'Game Search',
+                        labelStyle: Theme.of(context).textTheme.bodyText1,
+                        floatingLabelStyle: Theme.of(context).textTheme.bodyText2
                     ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                        child:ElevatedButton(
-                          child: Text('Search'),
-                          onPressed: () {
-                            nameText = nameInput.text;
-                            setGameInfo(nameText);
-                          },
-                        )
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                        child:ElevatedButton(
-                          child: Text('Advanced Search'),
-                          onPressed: () {
-                            Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                                      return AdvancedSearchScreen(title: 'Advanced Search', key: const Key("advanced search"));
-                                    }));
-                          },
-                        )
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                      child: Center(
-                        child: Text(
-                          'Name: $gameName'
-                              '\nRank: $rank'
-                              '\nURL: $URL'
-                              '\nYear Released: $year'
-                              '\nRating: $rating'
-                              '\nAverage Time: $avgTime'
-                              '\nMinimum Players: $minPlayers'
-                              '\nMaximum Players: $maxPlayers',
-                          textAlign: TextAlign.center,
-                          //overflow: TextOverflow.ellipsis,
-                          textScaleFactor: 0.75,
-                          style: Theme.of(context).textTheme.headline1,
-                        ),
-                      ),
-                    ),
-                  ]
+                  ),
                 ),
-              ),
-            ),
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    child:ElevatedButton(
+                      child: Text('Search'),
+                      onPressed: () {
+                        nameText = nameInput.text;
+                        setGameInfo(nameText);
+                      },
+                    )
+                ),
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    child:ElevatedButton(
+                      child: Text('Advanced Search'),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (BuildContext context) {
+                                  return AdvancedSearchScreen(title: 'Advanced Search', key: const Key("advanced search"));
+                                }));
+                      },
+                    )
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  child: Center(
+                    child: Text(
+                      'Name: $gameName'
+                          '\nRank: $rank'
+                          '\nURL: $URL'
+                          '\nYear Released: $year'
+                          '\nRating: $rating'
+                          '\nAverage Time: $avgTime'
+                          '\nMinimum Players: $minPlayers'
+                          '\nMaximum Players: $maxPlayers',
+                      textAlign: TextAlign.center,
+                      //overflow: TextOverflow.ellipsis,
+                      textScaleFactor: 0.75,
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                  ),
+                ),
+              ]
+          ),
+        ),
+      ),
     );
   }
 }
