@@ -109,7 +109,7 @@ class _MyAppState extends State<MyApp> {
                     ),
                 ),
                 themeMode: _themeMode,
-                home: const MyHomePage(title: 'Game Geek')
+                home: const LoginScreen(),
             );
           }
           Widget loading = MaterialApp();

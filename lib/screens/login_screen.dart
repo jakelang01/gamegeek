@@ -1,6 +1,7 @@
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:game_geek/main.dart';
 import 'dart:convert';
 
 class LoginScreen extends StatefulWidget {
@@ -98,6 +99,11 @@ class _LoginScreen extends State<LoginScreen> {
                 }
                 else {
                   setErrorMessage("");
+                  Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (BuildContext context){
+                            return MyHomePage(title: 'Game Geek');
+                          }));
                 }
               },
             ),
