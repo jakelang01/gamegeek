@@ -120,19 +120,6 @@ class _UtilsScreen extends State<UtilsScreen> {
               },
             ),
           ),
-          //Spacer(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            child: ElevatedButton(
-              child: const Text("Reset"),
-              onPressed: (){
-                incr = 1;
-                setState(() {
-                  Object redrawObject = Object();
-                });
-              },
-            ),
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             child: ElevatedButton(
