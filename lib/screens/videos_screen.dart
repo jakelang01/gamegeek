@@ -95,7 +95,7 @@ class _VideosScreenState extends State<VideosScreen> {
                 ]
               ),
             ),
-            Padding(padding: EdgeInsets.only(left: 15,right: 270,top: 10),
+            Padding(padding: EdgeInsets.only(left: 15,right: 230,top: 10),
               child: ElevatedButton(
                 child: Text('See Results'),
                 onPressed: () {
@@ -103,7 +103,7 @@ class _VideosScreenState extends State<VideosScreen> {
                 },
               ),
             ),
-            Padding(padding: EdgeInsets.only(left: 15,right: 270,top: 10),
+            Padding(padding: EdgeInsets.only(left: 15,right: 230,top: 10),
               child: ElevatedButton(
                 child: Text('Other Videos'),
                 onPressed: () {
