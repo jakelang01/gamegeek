@@ -34,9 +34,9 @@ class _AdvancedSearchScreen extends State<AdvancedSearchScreen> {
   // searchLimit games that allow at least num players
   Future<void> numPlayerSearch(int num) async {
     QuerySnapshot searchResult = await databaseReference
-        // .where('min_players',isLessThanOrEqualTo: num) // can only have one of these for some reason
+    // .where('min_players',isLessThanOrEqualTo: num) // can only have one of these for some reason
         .where('max_players',isGreaterThanOrEqualTo: num)
-        // .orderBy('avg_rating') // also can't do this it turns out.
+    // .orderBy('avg_rating') // also can't do this it turns out.
         .limit(searchLimit).get();
     List<DocumentSnapshot> resultDocs = searchResult.docs;
     results = [];
@@ -88,7 +88,7 @@ class _AdvancedSearchScreen extends State<AdvancedSearchScreen> {
     return Center(
       child: Text(
         '-$docIndex-'
-        '\nName: $name'
+            '\nName: $name'
             '\nRank: $rankData'
             '\nURL: $urlData'
             '\nYear Released: $yearData'
@@ -124,12 +124,15 @@ class _AdvancedSearchScreen extends State<AdvancedSearchScreen> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                  child: TextFormField(
+                  child: TextField(
                     controller: numInput,
-                    decoration: const InputDecoration(
-                      hintText: 'Number of Players',
-                      contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20.0),
-                      border: OutlineInputBorder(),
+                    style: Theme.of(context).textTheme.bodyText1,
+                    decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).dividerColor)),
+                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.primary)),
+                        labelText: 'Number of Players',
+                        labelStyle: Theme.of(context).textTheme.bodyText1,
+                        floatingLabelStyle: Theme.of(context).textTheme.bodyText2
                     ),
                   ),
                 ),
@@ -161,8 +164,8 @@ class _AdvancedSearchScreen extends State<AdvancedSearchScreen> {
                     )
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                  child: Column(children: results,)
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    child: Column(children: results,)
                 ),
               ]
           ),
