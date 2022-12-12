@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:game_geek/screens/alarms_screen.dart';
 import 'package:game_geek/screens/game_utils_screen.dart';
@@ -7,7 +6,6 @@ import 'package:game_geek/screens/login_screen.dart';
 import 'package:game_geek/screens/game_search_screen.dart';
 import 'package:game_geek/screens/settings_screen.dart';
 import 'package:game_geek/screens/videos_screen.dart';
-
 
 void main() {
   runApp(const MyApp());
@@ -76,6 +74,11 @@ class _MyAppState extends State<MyApp> {
                         color: Colors.brown,
                         fontSize: 18
                     ),
+                    subtitle2: TextStyle(
+                      color: Colors.redAccent,
+                      fontSize: 18,
+                      fontStyle: FontStyle.italic,
+                    ),
                     headline1: TextStyle(
                         color: Colors.black,
                         fontSize: 24,
@@ -90,19 +93,19 @@ class _MyAppState extends State<MyApp> {
                   scaffoldBackgroundColor: Colors.grey.shade900,
                   dividerColor: Colors.grey.shade400,
                     textTheme:  TextTheme(
-                        bodyText1: TextStyle(
-                            color: Colors.grey.shade400,
-                            fontSize: 18
-                        ),
+                      bodyText1: TextStyle(
+                          color: Colors.grey.shade400,
+                          fontSize: 18
+                      ),
                       bodyText2: const TextStyle(
                           color: Colors.brown,
                           fontSize: 18
                       ),
-                        headline1: TextStyle(
-                            color: Colors.grey.shade400,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold
-                        ),
+                      headline1: TextStyle(
+                          color: Colors.grey.shade400,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold
+                      ),
                     ),
                 ),
                 themeMode: _themeMode,

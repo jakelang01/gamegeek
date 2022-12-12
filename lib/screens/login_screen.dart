@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   _LoginScreen createState() => _LoginScreen();
 }
@@ -54,9 +56,12 @@ class _LoginScreen extends State<LoginScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: TextField(
                 controller: usernameController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Username",
+                style: Theme.of(context).textTheme.bodyText1,
+                decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).dividerColor)),
+                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.primary)),
+                    labelStyle: Theme.of(context).textTheme.bodyText1,
+                    labelText: 'Username',
                 ),
               ),
             ),
@@ -65,16 +70,20 @@ class _LoginScreen extends State<LoginScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: TextField(
                 controller: passwordController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Password",
+                style: Theme.of(context).textTheme.bodyText1,
+                obscureText: true,
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).dividerColor)),
+                  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.primary)),
+                  labelStyle: Theme.of(context).textTheme.bodyText1,
+                  labelText: 'Password',
                 ),
               ),
             ),
             // error message text
             Text(
               errorMessage,
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: errorMessageSize),
+              style: Theme.of(context).textTheme.subtitle2?.copyWith(fontSize: errorMessageSize),
             ),
             // login button
             ElevatedButton(
@@ -82,13 +91,13 @@ class _LoginScreen extends State<LoginScreen> {
                 "Login",
               ),
               onPressed: () async {
-                String _username = usernameController.text;
-                String _password = passwordController.text;
-                if (await passwordIsValid(_username, _password)) {
-                  print("password worked");
+                String usernameCopy = usernameController.text;
+                String passwordCopy = passwordController.text;
+                if (!await passwordIsValid(usernameCopy, passwordCopy)) {
+                  setErrorMessage("Username or Password is invalid!");
                 }
                 else {
-                  print("password no worky");
+                  setErrorMessage("");
                 }
               },
             ),
