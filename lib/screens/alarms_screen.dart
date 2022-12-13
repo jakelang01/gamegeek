@@ -72,7 +72,10 @@ class _AlarmScreen extends State<AlarmScreen>{
                 controller: clockController, //editing controller of this TextField
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).unselectedWidgetColor)),
-                  icon: Icon(Icons.timer), //icon of text field
+                  icon: Icon(
+                    Icons.timer,
+                    color: Theme.of(context).iconTheme.color,
+                  ), //icon of text field
                   labelText: "Set alarm",
                   labelStyle: Theme.of(context).textTheme.bodyText2,
                   floatingLabelStyle: Theme.of(context).textTheme.bodyText1,//label text of field

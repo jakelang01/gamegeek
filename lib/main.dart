@@ -60,6 +60,9 @@ class _MyAppState extends State<MyApp> {
             return MaterialApp(
                 title: 'Game Geek',
                 theme: ThemeData(
+                  iconTheme: IconThemeData(
+                      color: Colors.brown,
+                  ),
                   colorScheme: ColorScheme.fromSwatch(
                     primarySwatch: Colors.brown,
                   ),
@@ -101,10 +104,16 @@ class _MyAppState extends State<MyApp> {
                         decorationColor: Colors.brown,
                         decorationThickness: 2,
                     ),
+                    button: TextStyle(
+                      fontSize: 18
+                    ),
                   ),
                   canvasColor: const Color.fromRGBO(210, 180, 140, 1),
                 ),
                 darkTheme: ThemeData(
+                  iconTheme: IconThemeData(
+                      color: Colors.brown.shade100,
+                  ),
                   colorScheme: ColorScheme.fromSwatch(
                     primarySwatch: Colors.brown,
                   ),
@@ -136,6 +145,9 @@ class _MyAppState extends State<MyApp> {
                         decoration: TextDecoration.underline,
                         decorationColor: Colors.brown.shade100,
                         decorationThickness: 2,
+                      ),
+                      button: TextStyle(
+                          fontSize: 18
                       ),
                     ),
                 ),

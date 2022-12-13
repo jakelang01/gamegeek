@@ -108,13 +108,12 @@ class _UtilsScreen extends State<UtilsScreen> {
             ],
             //-10, -1, Display, +1, +10
           ),
-          //Spacer(),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+            padding: const EdgeInsets.only(left: 8, right: 8, top: 12),
             child: ElevatedButton(
               child: const Text("Reset"),
               onPressed: (){
-                incr = 1;
+                incr = 0;
                 setState(() {
                   Object redrawObject = Object();
                 });
