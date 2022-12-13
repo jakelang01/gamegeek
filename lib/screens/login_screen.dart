@@ -101,6 +101,7 @@ class _LoginScreen extends State<LoginScreen> {
                 }
                 else {
                   setErrorMessage("");
+                  MyApp.of(context).setUser(usernameCopy); // for profile page
                   Navigator.of(context).push(
                       MaterialPageRoute(
                           builder: (BuildContext context){
