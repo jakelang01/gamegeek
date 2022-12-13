@@ -117,7 +117,7 @@ class _SearchScreen extends State<SearchScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 4),
                   child: Center(
                     child: RichText(
-
+                      textAlign: TextAlign.center,
                       text: TextSpan(
                           style: Theme.of(context).textTheme.headline1,
 
@@ -129,13 +129,13 @@ class _SearchScreen extends State<SearchScreen> {
                                 text: '$gameName', style: TextStyle(color: Colors.brown)
                             ),
                             const TextSpan(
-                                text: '\n\nRank: ', style: TextStyle(fontWeight: FontWeight.bold)
+                                text: '\nRank: ', style: TextStyle(fontWeight: FontWeight.bold)
                             ),
                             TextSpan(
                                 text: '$rank', style: TextStyle(color: Colors.brown)
                             ),
                             const TextSpan(
-                                text: '\n\nURL: ', style: TextStyle(fontWeight: FontWeight.bold)
+                                text: '\nURL: ', style: TextStyle(fontWeight: FontWeight.bold)
                             ),
                             TextSpan(
                                 text: '$gameName',
@@ -145,31 +145,31 @@ class _SearchScreen extends State<SearchScreen> {
                                   }
                             ),
                             const TextSpan(
-                                text: '\n\nYear Released: ', style: TextStyle(fontWeight: FontWeight.bold)
+                                text: '\nYear Released: ', style: TextStyle(fontWeight: FontWeight.bold)
                             ),
                             TextSpan(
                                 text: '$year', style: TextStyle(color: Colors.brown)
                             ),
                             const TextSpan(
-                                text: '\n\nRating: ', style: TextStyle(fontWeight: FontWeight.bold)
+                                text: '\nRating: ', style: TextStyle(fontWeight: FontWeight.bold)
                             ),
                             TextSpan(
                                 text: '$rating', style: TextStyle(color: Colors.brown)
                             ),
                             const TextSpan(
-                                text: '\n\nAverage Time: ', style: TextStyle(fontWeight: FontWeight.bold)
+                                text: '\nAverage Time: ', style: TextStyle(fontWeight: FontWeight.bold)
                             ),
                             TextSpan(
                                 text: '$avgTime Minutes', style: TextStyle(color: Colors.brown)
                             ),
                             const TextSpan(
-                                text: '\n\nMinimum Players: ', style: TextStyle(fontWeight: FontWeight.bold)
+                                text: '\nMinimum Players: ', style: TextStyle(fontWeight: FontWeight.bold)
                             ),
                             TextSpan(
                                 text: '$minPlayers', style: TextStyle(color: Colors.brown)
                             ),
                             const TextSpan(
-                                text: '\n\nMaximum Players: ', style: TextStyle(fontWeight: FontWeight.bold)
+                                text: '\nMaximum Players: ', style: TextStyle(fontWeight: FontWeight.bold)
                             ),
                             TextSpan(
                                 text: '$maxPlayers', style: TextStyle(color: Colors.brown)
