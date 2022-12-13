@@ -145,7 +145,7 @@ class _AdvancedSearchScreen extends State<AdvancedSearchScreen> {
             text: '\nAverage Time: ', style: TextStyle(fontWeight: FontWeight.bold)
             ),
             TextSpan(
-            text: '$avgTimeData', style: TextStyle(color: Colors.brown)
+            text: '$avgTimeData Minutes', style: TextStyle(color: Colors.brown)
             ),
             const TextSpan(
             text: '\nMinimum Players: ', style: TextStyle(fontWeight: FontWeight.bold)
