@@ -15,30 +15,30 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
 
-  // example fields that could be in a profile
-  // need to be in user's database document
   //TODO: Get data for logged in user from db on build
   //TODO: Update relevant field on button press
-  Map<String,String> userData = {"name":"","birthday":"","location":"","favorite":""};
+  Map<String,String> userData = {"username":"","password":"","name":"","birthday":"","location":"","favorite":""};
   final userDB = FirebaseFirestore.instance.collection('Users');
-  //String user = "exampleUsername"; // change these to reflect logged in user
+  String user = "exampleUsername";
   String password = "password";
 
   // username
   Future<void> getData() async {
     DocumentSnapshot userDoc = await userDB.doc(MyApp.of(context).getUser()).get();
     setState(() {
-      userData["name"] = userDoc.get("name");
-      userData["birthday"] = userDoc.get("birthday");
-      userData["location"] = userDoc.get("location");
-      userData["favorite"] = userDoc.get("favorite");
+      userData["username"] = userDoc.get("username");
+      userData["password"] = userDoc.get("password");
+      userData["name"] = (userDoc.get("name") as String).isEmpty ? "No name set" : userDoc.get("name");
+      userData["birthday"] = (userDoc.get("birthday") as String).isEmpty ? "No birthday set" : userDoc.get("birthday");
+      userData["location"] = (userDoc.get("location") as String).isEmpty ? "No location set" : userDoc.get("location");
+      userData["favorite"] = (userDoc.get("favorite") as String).isEmpty ? "No favorite set" : userDoc.get("favorite");
     });
   }
 
   @override
   void initState() {
     super.initState();
-    //user = MyApp.of(context).getUser();
+    user = MyApp.of(context).getUser();
     getData();
   }
 
@@ -90,6 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: const Text('Submit'),
               onPressed: () async {
                 editField(field, controller.value.text);
+                Navigator.of(context).pop();
               }
             ),
           ],

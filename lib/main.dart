@@ -342,7 +342,7 @@ class HamburgerDir extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text('Login Screen',
+            title: Text('Log Out',
               style: Theme.of(context).textTheme.headline5,
             ),
             onTap:(){
