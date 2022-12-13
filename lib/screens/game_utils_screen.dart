@@ -21,17 +21,17 @@ class _UtilsScreen extends State<UtilsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Game Utilities'),
+        title: const Text('Game Utilities'),
         centerTitle: false,
       ),
       //backgroundColor: Colors.white,
       body: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+            padding: const EdgeInsets.only(bottom: 16, left: 16, right: 16, top: 20),
             child: Text(
-              "Incrementer",
-              style: Theme.of(context).textTheme.bodyText2,
+              "Counter",
+              style: Theme.of(context).textTheme.headline3,
             ),
           ),
           Row(
@@ -121,7 +121,7 @@ class _UtilsScreen extends State<UtilsScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             child: ElevatedButton(
               child: const Text("Dice Roller"),
               onPressed: (){
@@ -224,9 +224,13 @@ class _DiceRollerScreen extends State<DiceRollerScreen> {
             ),
          ),
          Padding(
-           padding: const EdgeInsets.all(8),
+           padding: const EdgeInsets.all(12),
            child: Text(
              "Result: $rolled",
+             style: const TextStyle(
+               fontSize: 24,
+               fontWeight: FontWeight.bold,
+             ),
            ),
          ),
         ],

@@ -93,6 +93,11 @@ class _MyAppState extends State<MyApp> {
                         fontSize: 24,
                         fontWeight: FontWeight.bold
                     ),
+                    headline3: TextStyle(
+                        color: Colors.brown,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                    ),
                     headline5: TextStyle(  //using headline5 as drawer buttons because button has already been defined and it messes up a lot of things
                       shadows: [
                         Shadow(
@@ -134,6 +139,11 @@ class _MyAppState extends State<MyApp> {
                           color: Colors.brown.shade100,
                           fontSize: 24,
                           fontWeight: FontWeight.bold
+                      ),
+                      headline3: TextStyle(
+                        color: Colors.brown,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
                       ),
                       headline5: TextStyle(
                         shadows: [
