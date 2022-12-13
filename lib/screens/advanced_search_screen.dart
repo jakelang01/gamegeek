@@ -4,6 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
+import 'package:flutter/gestures.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 final databaseReference = FirebaseFirestore.instance.collection("Data");
 const int searchLimit = 10; // change this to change the number of results displayed
@@ -48,6 +50,8 @@ class _AdvancedSearchScreen extends State<AdvancedSearchScreen> {
     setState(() {});
   }
 
+
+
   // searchLimit shortest games
   Future<void> ascTimeSearch() async {
     QuerySnapshot searchResult = await databaseReference
@@ -77,6 +81,7 @@ class _AdvancedSearchScreen extends State<AdvancedSearchScreen> {
   }
 
   Widget createResult(DocumentSnapshot doc, int docIndex) {
+
     var name = doc.get('names');
     var rankData = doc.get('rank');
     var urlData = doc.get('bgg_url');
@@ -85,22 +90,78 @@ class _AdvancedSearchScreen extends State<AdvancedSearchScreen> {
     var avgTimeData = doc.get('avg_time');
     var yearData = doc.get('year');
     var ratingData = doc.get('avg_rating');
+
+    Future<void> _launchUrl() async {
+      Uri _url = Uri.parse(urlData);
+      if (!await launchUrl(_url)) {
+        throw 'Could not launch $URL';
+      }
+    }
+
     return Center(
-      child: Text(
-        '-$docIndex-'
-            '\nName: $name'
-            '\nRank: $rankData'
-            '\nURL: $urlData'
-            '\nYear Released: $yearData'
-            '\nRating: $ratingData'
-            '\nAverage Time: $avgTimeData'
-            '\nMinimum Players: $minPlayersData'
-            '\nMaximum Players: $maxPlayersData\n',
-        textAlign: TextAlign.center,
-        //overflow: TextOverflow.ellipsis,
-        textScaleFactor: 0.75,
-        style: Theme.of(context).textTheme.headline1,
-      ),
+        child: RichText(
+          textAlign: TextAlign.left,
+        text: TextSpan(
+
+            text: '\n\n\n',
+            style: Theme.of(context).textTheme.headline1,
+
+    children: <TextSpan>[
+            const TextSpan(
+            text: '\Name: ', style: TextStyle(fontWeight: FontWeight.bold)
+            ),
+            TextSpan(
+            text: '$name', style: TextStyle(color: Colors.brown)
+            ),
+            const TextSpan(
+            text: '\n\nRank: ', style: TextStyle(fontWeight: FontWeight.bold)
+            ),
+            TextSpan(
+            text: '$rankData', style: TextStyle(color: Colors.brown)
+            ),
+            const TextSpan(
+            text: '\n\nURL: ', style: TextStyle(fontWeight: FontWeight.bold)
+            ),
+            TextSpan(
+            text: 'link',
+            style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
+            recognizer: new TapGestureRecognizer()
+            ..onTap = () {_launchUrl();
+            }
+            ),
+            const TextSpan(
+            text: '\n\nYear Released: ', style: TextStyle(fontWeight: FontWeight.bold)
+            ),
+            TextSpan(
+            text: '$yearData', style: TextStyle(color: Colors.brown)
+            ),
+            const TextSpan(
+            text: '\n\nRating: ', style: TextStyle(fontWeight: FontWeight.bold)
+            ),
+            TextSpan(
+            text: '$ratingData', style: TextStyle(color: Colors.brown)
+            ),
+            const TextSpan(
+            text: '\n\nAverage Time: ', style: TextStyle(fontWeight: FontWeight.bold)
+            ),
+            TextSpan(
+            text: '$avgTimeData', style: TextStyle(color: Colors.brown)
+            ),
+            const TextSpan(
+            text: '\n\nMinimum Players: ', style: TextStyle(fontWeight: FontWeight.bold)
+            ),
+            TextSpan(
+            text: '$minPlayersData', style: TextStyle(color: Colors.brown)
+            ),
+            const TextSpan(
+            text: '\n\nMaximum Players: ', style: TextStyle(fontWeight: FontWeight.bold)
+            ),
+            TextSpan(
+            text: '$maxPlayersData', style: TextStyle(color: Colors.brown)
+            ),
+    ]
+        ),
+        ),
     );
   }
 
