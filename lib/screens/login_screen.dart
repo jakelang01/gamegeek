@@ -116,6 +116,7 @@ class _LoginScreen extends State<LoginScreen> {
                 "Create New Account",
               ),
               onPressed: () {
+                setErrorMessage("");
                 _createNewUserDialog(context);
               },
             )
