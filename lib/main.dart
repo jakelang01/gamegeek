@@ -61,13 +61,14 @@ class _MyAppState extends State<MyApp> {
             return MaterialApp(
                 title: 'Game Geek',
                 theme: ThemeData(
-                  iconTheme: IconThemeData(
+                  iconTheme: const IconThemeData(
                       color: Colors.brown,
                   ),
                   colorScheme: ColorScheme.fromSwatch(
                     primarySwatch: Colors.brown,
                   ),
                   scaffoldBackgroundColor: const Color.fromRGBO(210, 180, 140, 1),
+                  secondaryHeaderColor: const Color.fromRGBO(237, 225, 209, 1),
                   dividerColor: Colors.black,
                   textTheme: const TextTheme(
                     bodyText1: TextStyle(
@@ -114,7 +115,7 @@ class _MyAppState extends State<MyApp> {
                       fontSize: 18
                     ),
                   ),
-                  canvasColor: const Color.fromRGBO(210, 180, 140, 1),
+                  canvasColor: const Color.fromRGBO(228, 210, 186, 1),
                 ),
                 darkTheme: ThemeData(
                   iconTheme: IconThemeData(
@@ -124,6 +125,7 @@ class _MyAppState extends State<MyApp> {
                     primarySwatch: Colors.brown,
                   ),
                   scaffoldBackgroundColor: Colors.brown.shade900,
+                  secondaryHeaderColor: const Color.fromRGBO(100, 82, 78, 1),
                   dividerColor: Colors.grey.shade400,
                     canvasColor: Colors.brown.shade900,
                     textTheme:  TextTheme(
@@ -134,6 +136,11 @@ class _MyAppState extends State<MyApp> {
                       bodyText2: TextStyle(
                           color: Colors.brown.shade100,
                           fontSize: 18
+                      ),
+                      subtitle2: TextStyle(
+                        color: Colors.redAccent,
+                        fontSize: 18,
+                        fontStyle: FontStyle.italic,
                       ),
                       headline1: TextStyle(
                           color: Colors.brown.shade100,
