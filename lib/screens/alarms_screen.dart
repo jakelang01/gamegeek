@@ -43,34 +43,31 @@ class _AlarmScreen extends State<AlarmScreen>{
   }
 
   @override
-  Widget build(BuildContext build){
+  Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(false),
         ),
-        title: Text("Game Alarms"),
+        title: const Text("Game Alarms"),
         centerTitle: true,
         actions: <Widget>[],
       ),
-    //backgroundColor: Theme.of(context).backgroundColor,
-    //backgroundColor: Color.fromARGB(255, 82, 0, 0),
-    //backgroundColor: Colors.white,
-    body: Column(
-        //mainAxisAlignment: MainAxisAlignment.center,
+      body: Column(
         children: <Widget>[
-          const Padding(
-            padding: EdgeInsets.only(top: 16, bottom: 8),
+          Padding(
+            padding: const EdgeInsets.only(top: 16, bottom: 8),
             child: Text(
               "Select your alarm time here: ",
-              style: TextStyle(fontSize: 20),
+              style: Theme.of(context).textTheme.headline3,
             ),
           ),
           Padding(
             padding:const EdgeInsets.symmetric(horizontal: 108, vertical: 8),
               child:TextField(
-                controller: clockController, //editing controller of this TextField
+                controller: clockController,
+                style: Theme.of(context).textTheme.bodyText2,//editing controller of this TextField
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).unselectedWidgetColor)),
                   icon: Icon(
@@ -79,7 +76,7 @@ class _AlarmScreen extends State<AlarmScreen>{
                   ), //icon of text field
                   labelText: "Set alarm",
                   labelStyle: Theme.of(context).textTheme.bodyText2,
-                  floatingLabelStyle: Theme.of(context).textTheme.bodyText1,//label text of field
+                  floatingLabelStyle: Theme.of(context).textTheme.bodyText2,//label text of field
                 ),
                 readOnly: true,  //set it true, so that user will not able to edit text
                 onTap: () async {
@@ -88,12 +85,12 @@ class _AlarmScreen extends State<AlarmScreen>{
                     context: context,
                   );
                   if(pickedTime != null ){
-                    print(pickedTime.format(context));   //output 10:51 PM
+                    //print(pickedTime.format(context));   //output 10:51 PM
                     DateTime parsedTime = DateFormat.jm().parse(pickedTime.format(context).toString());
                     //converting to DateTime so that we can further format on different pattern.
-                    print(parsedTime); //output 1970-01-01 22:53:00.000
+                    //print(parsedTime); //output 1970-01-01 22:53:00.000
                     String formattedTime = DateFormat('HH:mm').format(parsedTime);
-                    print(formattedTime); //output 14:59
+                    //print(formattedTime); //output 14:59
                     //DateFormat() is from intl package, you can format the time on any pattern you need.
                     setState(() {
                       clockController.text = formattedTime; //set the value of text field.

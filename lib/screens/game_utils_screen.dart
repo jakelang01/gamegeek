@@ -11,7 +11,7 @@ TextEditingController nSides = TextEditingController(text: "6");
 
 class _UtilsScreen extends State<UtilsScreen> {
 
-  int incr = 1;
+  int incr = 0;
   String notes = "";
   TextEditingController notesController = TextEditingController();
 
@@ -135,22 +135,22 @@ class _UtilsScreen extends State<UtilsScreen> {
               },
             ),
           ),
-          const Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 0)
-          ),
-          Expanded(
-           child: TextField(
-             keyboardType: TextInputType.multiline,
-             maxLines: null,
-             controller: notesController,
-             style: Theme.of(context).textTheme.bodyText1,
-             decoration: InputDecoration(
-              contentPadding: EdgeInsets.all(10),
-              focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Theme.of(context).colorScheme.primary)),
+          Padding(
+            padding: const EdgeInsets.only(left: 12, right: 12, top: 12),
+            child: TextField(
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
+              controller: notesController,
+              style: Theme.of(context).textTheme.bodyText1,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(10),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Theme.of(context).colorScheme.primary)
+                ),
               hintText: "Your gaming notes here",
+              hintStyle: Theme.of(context).textTheme.bodyText2,
               ),
-           ),
+            ),
           ),
         ]
       ),

@@ -55,8 +55,9 @@ class _MyAppState extends State<MyApp> {
     return FutureBuilder(
         future: Firebase.initializeApp(),
         builder: (context, snapshot) {
-          if (snapshot.hasError)
+          if (snapshot.hasError) {
             print("couldnt connect");
+          }
           if (snapshot.connectionState == ConnectionState.done) {
             return MaterialApp(
               title: 'Gamerbase',
@@ -64,6 +65,7 @@ class _MyAppState extends State<MyApp> {
                   iconTheme: const IconThemeData(
                       color: Colors.brown,
                   ),
+                  unselectedWidgetColor: Colors.brown,
                   colorScheme: ColorScheme.fromSwatch(
                     primarySwatch: Colors.brown,
                   ),
@@ -121,6 +123,7 @@ class _MyAppState extends State<MyApp> {
                   iconTheme: IconThemeData(
                       color: Colors.brown.shade100,
                   ),
+                  unselectedWidgetColor: Colors.brown.shade100,
                   colorScheme: ColorScheme.fromSwatch(
                     primarySwatch: Colors.brown,
                   ),
@@ -148,7 +151,7 @@ class _MyAppState extends State<MyApp> {
                           fontWeight: FontWeight.bold
                       ),
                       headline3: TextStyle(
-                        color: Colors.brown,
+                        color: Colors.brown.shade100,
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
