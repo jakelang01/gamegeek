@@ -24,7 +24,7 @@ class _UtilsScreen extends State<UtilsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Game Utilities'),
-        centerTitle: false,
+        centerTitle: true,
       ),
       //backgroundColor: Colors.white,
       body: Column(

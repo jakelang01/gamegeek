@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
 
-class TrackingScreen extends StatefulWidget {
+class TimerScreen extends StatefulWidget {
   @override
-  _TrackingScreen createState() => _TrackingScreen();
+  _TimerScreen createState() => _TimerScreen();
 }
 
-class _TrackingScreen extends State<TrackingScreen> {
+class _TimerScreen extends State<TimerScreen> {
 
   TextEditingController nameInput = TextEditingController();
   String gameName = '';
@@ -43,7 +43,7 @@ class _TrackingScreen extends State<TrackingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Game Tracker'),
+        title: Text('Game Timer'),
         centerTitle: true,
       ),
       //backgroundColor: Theme.of(context).backgroundColor,

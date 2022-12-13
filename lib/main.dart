@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:game_geek/screens/alarms_screen.dart';
-import 'package:game_geek/screens/game_tracking_page.dart';
+import 'package:game_geek/screens/game_timer_page.dart';
 import 'package:game_geek/screens/game_utils_screen.dart';
 import 'package:game_geek/screens/login_screen.dart';
 import 'package:game_geek/screens/game_search_screen.dart';
@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
             print("couldnt connect");
           if (snapshot.connectionState == ConnectionState.done) {
             return MaterialApp(
-                title: 'Game Geek',
+              title: 'Gamerbase',
                 theme: ThemeData(
                   iconTheme: const IconThemeData(
                       color: Colors.brown,
@@ -207,7 +207,10 @@ class _MyHomePageState extends State<MyHomePage> {
           Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
-              title: Text(widget.title),
+              title: Padding(
+                padding: const EdgeInsets.only(left: 70),
+                child: Text('Gamerbase'),
+              ),
             ),
             body: ListView(
               //mainAxisAlignment: MainAxisAlignment.center,
@@ -303,14 +306,14 @@ class HamburgerDir extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text('Game Tracker',
+            title: Text('Game Timer',
               style: Theme.of(context).textTheme.headline5,
             ),
             onTap:(){
               Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (BuildContext context){
-                        return TrackingScreen();
+                        return TimerScreen();
                       }));
             },
           ),

@@ -76,7 +76,7 @@ class _VideoResultScreenState extends State<VideoResultScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Videos'),
-          centerTitle: false,
+          centerTitle: true,
         ),
         body: ListView(
           children: createPlayerList()

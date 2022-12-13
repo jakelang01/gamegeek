@@ -58,7 +58,7 @@ class _VideosScreenState extends State<VideosScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Videos'),
-          centerTitle: false,
+          centerTitle: true,
         ),
         body: ListView(
           children: <Widget>[

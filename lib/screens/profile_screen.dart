@@ -112,7 +112,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Profile'),
-          centerTitle: false,
+          centerTitle: true,
         ),
         body: Center(child: ListView(
           children: <Widget>[

@@ -35,7 +35,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Settings'),
-          centerTitle: false,
+          centerTitle: true,
         ),
         body: Center(child: ListView(
           children: <Widget>[

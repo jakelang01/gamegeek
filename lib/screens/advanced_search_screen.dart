@@ -175,7 +175,7 @@ class _AdvancedSearchScreen extends State<AdvancedSearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Gamerbase Search'),
+        title: Text('Gamerbase Advanced Search'),
         centerTitle: true,
       ),
       //backgroundColor: Theme.of(context).backgroundColor,

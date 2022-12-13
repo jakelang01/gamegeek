@@ -51,6 +51,7 @@ class _AlarmScreen extends State<AlarmScreen>{
           onPressed: () => Navigator.of(context).pop(false),
         ),
         title: Text("Game Alarms"),
+        centerTitle: true,
         actions: <Widget>[],
       ),
     //backgroundColor: Theme.of(context).backgroundColor,
