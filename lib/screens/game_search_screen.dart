@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -5,6 +6,8 @@ import 'package:csv/csv.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:game_geek/screens/advanced_search_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 final databaseReference = FirebaseFirestore.instance.collection("Data");
 
@@ -46,6 +49,13 @@ class _SearchScreen extends State<SearchScreen> {
       year = yearData;
       rating = ratingData;
     });
+  }
+
+  Future<void> _launchUrl() async {
+    Uri _url = Uri.parse(URL);
+    if (!await launchUrl(_url)) {
+      throw 'Could not launch $URL';
+    }
   }
 
   @override
@@ -104,24 +114,71 @@ class _SearchScreen extends State<SearchScreen> {
                     )
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 4),
                   child: Center(
-                    child: Text(
-                      'Name: $gameName'
-                          '\nRank: $rank'
-                          '\nURL: $URL'
-                          '\nYear Released: $year'
-                          '\nRating: $rating'
-                          '\nAverage Time: $avgTime'
-                          '\nMinimum Players: $minPlayers'
-                          '\nMaximum Players: $maxPlayers',
-                      textAlign: TextAlign.center,
-                      //overflow: TextOverflow.ellipsis,
-                      textScaleFactor: 0.75,
-                      style: Theme.of(context).textTheme.headline1,
+                    child: RichText(
+
+                      text: TextSpan(
+                          style: Theme.of(context).textTheme.headline1,
+
+                        children: <TextSpan>[
+                          const TextSpan(
+                            text: 'Name: ', style: TextStyle(fontWeight: FontWeight.bold)
+                          ),
+                          TextSpan(
+                            text: '$gameName', style: TextStyle(color: Colors.brown)
+                          ),
+                          const TextSpan(
+                              text: '\n\nRank: ', style: TextStyle(fontWeight: FontWeight.bold)
+                          ),
+                          TextSpan(
+                              text: '$rank', style: TextStyle(color: Colors.brown)
+                          ),
+                          const TextSpan(
+                              text: '\n\nURL: ', style: TextStyle(fontWeight: FontWeight.bold)
+                          ),
+                          TextSpan(
+                              text: 'link',
+                              style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
+                              recognizer: new TapGestureRecognizer()
+                              ..onTap = () {_launchUrl();
+                              }
+                          ),
+                          const TextSpan(
+                              text: '\n\nYear Released: ', style: TextStyle(fontWeight: FontWeight.bold)
+                          ),
+                          TextSpan(
+                              text: '$year', style: TextStyle(color: Colors.brown)
+                          ),
+                          const TextSpan(
+                              text: '\n\nRating: ', style: TextStyle(fontWeight: FontWeight.bold)
+                          ),
+                          TextSpan(
+                              text: '$rating', style: TextStyle(color: Colors.brown)
+                          ),
+                          const TextSpan(
+                              text: '\n\nAverage Time: ', style: TextStyle(fontWeight: FontWeight.bold)
+                          ),
+                          TextSpan(
+                              text: '$avgTime', style: TextStyle(color: Colors.brown)
+                          ),
+                          const TextSpan(
+                              text: '\n\nMinimum Players: ', style: TextStyle(fontWeight: FontWeight.bold)
+                          ),
+                          TextSpan(
+                              text: '$minPlayers', style: TextStyle(color: Colors.brown)
+                          ),
+                          const TextSpan(
+                              text: '\n\nMaximum Players: ', style: TextStyle(fontWeight: FontWeight.bold)
+                          ),
+                          TextSpan(
+                              text: '$maxPlayers', style: TextStyle(color: Colors.brown)
+                          ),
+                      ]
                     ),
                   ),
                 ),
+                )
               ]
           ),
         ),
@@ -129,3 +186,17 @@ class _SearchScreen extends State<SearchScreen> {
     );
   }
 }
+
+// 'Name: $gameName'
+// '\n\nRank: $rank'
+// '\n\nURL: $URL'
+// '\n\nYear Released: $year'
+// '\n\nRating: $rating'
+// '\n\nAverage Time: $avgTime'
+// '\n\nMinimum Players: $minPlayers'
+// '\n\nMaximum Players: $maxPlayers',
+
+//textAlign: TextAlign.left,
+//overflow: TextOverflow.ellipsis,
+//textScaleFactor: 0.75,
+//style: Theme.of(context).textTheme.headline1,
