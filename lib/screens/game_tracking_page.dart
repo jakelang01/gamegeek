@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:stop_watch_timer/stop_watch_timer.dart';
+import 'dart:async';
 
 class TrackingScreen extends StatefulWidget {
   @override
@@ -13,17 +13,37 @@ class _TrackingScreen extends State<TrackingScreen> {
   String gameName = '';
   String formattedDate = new DateFormat('LLL d, yyyy').format(new DateTime.now());
   String formattedTime = new DateFormat('kk:mm:ss').format(new DateTime.now());
+  Stopwatch stopwatch = Stopwatch();
+  late Timer _timer;
+
+  String formatTime(int milliseconds) {
+    var secs = milliseconds ~/ 1000;
+    var hours = (secs ~/ 3600).toString().padLeft(2, '0');
+    var minutes = ((secs % 3600) ~/ 60).toString().padLeft(2, '0');
+    var seconds = (secs % 60).toString().padLeft(2, '0');
+    return "$hours:$minutes:$seconds";
+  }
+
+    @override
+    void initState() {
+      super.initState();
+      // re-render every 30ms
+      _timer = new Timer.periodic(new Duration(milliseconds: 30), (timer) {
+        setState(() {});
+      });
+    }
 
   @override
-  void initState() {
-    super.initState();
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('$formattedDate'),
+        title: Text('Game Tracker'),
         centerTitle: true,
       ),
       //backgroundColor: Theme.of(context).backgroundColor,
@@ -58,11 +78,24 @@ class _TrackingScreen extends State<TrackingScreen> {
                     )
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  padding: const EdgeInsets.only(top: 8, bottom: 2),
                   child: Center(
                     child: Text(
                       'Name: $gameName'
-                      '\nGame Start Time: $formattedTime',
+                          '\nGame Start Date: $formattedDate'
+                      '\nGame Start Time: $formattedTime'
+                      '\n\nStopwatch:',
+                      textAlign: TextAlign.center,
+                      textScaleFactor: 1,
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 2, bottom: 2),
+                  child: Center(
+                    child: Text(
+                      formatTime(stopwatch.elapsedMilliseconds),
                       textAlign: TextAlign.center,
                       textScaleFactor: 1,
                       style: Theme.of(context).textTheme.headline1,
@@ -77,10 +110,13 @@ class _TrackingScreen extends State<TrackingScreen> {
                         child:ElevatedButton(
                           child: Text('Start'),
                           onPressed: () {
-                            // if statement that checks if timer is at 00:00:00 then sets formatTime
-                            setState(() {
-                              formattedTime = new DateFormat('kk:mm:ss').format(new DateTime.now());
-                            });
+                            stopwatch.start();
+                            if(formatTime(stopwatch.elapsedMilliseconds) == "00:00:00") {
+                              setState(() {
+                                formattedTime = new DateFormat('kk:mm:ss').format(new DateTime.now());
+                                formattedDate = new DateFormat('LLL d, yyyy').format(new DateTime.now());
+                              });
+                            }
                           },
                         )
                     ),
@@ -90,7 +126,9 @@ class _TrackingScreen extends State<TrackingScreen> {
                           child: Text('Stop'),
                           onPressed: () {
                             setState(() {
-
+                              if(stopwatch.isRunning) {
+                                stopwatch.stop();
+                              }
                             });
                           },
                         )
@@ -101,7 +139,13 @@ class _TrackingScreen extends State<TrackingScreen> {
                           child: Text('Reset'),
                           onPressed: () {
                             setState(() {
-
+                              if(stopwatch.isRunning) {
+                                stopwatch.stop();
+                                stopwatch.reset();
+                              }
+                              else {
+                                stopwatch.reset();
+                              }
                             });
                           },
                         )
