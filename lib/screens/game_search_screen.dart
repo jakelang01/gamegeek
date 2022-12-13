@@ -67,7 +67,7 @@ class _SearchScreen extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Game Geek Search'),
+        title: Text('Gamerbase Search'),
         centerTitle: true,
       ),
       //backgroundColor: Theme.of(context).backgroundColor,
@@ -121,63 +121,63 @@ class _SearchScreen extends State<SearchScreen> {
                       text: TextSpan(
                           style: Theme.of(context).textTheme.headline1,
 
-                        children: <TextSpan>[
-                          const TextSpan(
-                            text: 'Name: ', style: TextStyle(fontWeight: FontWeight.bold)
-                          ),
-                          TextSpan(
-                            text: '$gameName', style: TextStyle(color: Colors.brown)
-                          ),
-                          const TextSpan(
-                              text: '\n\nRank: ', style: TextStyle(fontWeight: FontWeight.bold)
-                          ),
-                          TextSpan(
-                              text: '$rank', style: TextStyle(color: Colors.brown)
-                          ),
-                          const TextSpan(
-                              text: '\n\nURL: ', style: TextStyle(fontWeight: FontWeight.bold)
-                          ),
-                          TextSpan(
-                              text: 'link',
-                              style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
-                              recognizer: new TapGestureRecognizer()
-                              ..onTap = () {_launchUrl();
-                              }
-                          ),
-                          const TextSpan(
-                              text: '\n\nYear Released: ', style: TextStyle(fontWeight: FontWeight.bold)
-                          ),
-                          TextSpan(
-                              text: '$year', style: TextStyle(color: Colors.brown)
-                          ),
-                          const TextSpan(
-                              text: '\n\nRating: ', style: TextStyle(fontWeight: FontWeight.bold)
-                          ),
-                          TextSpan(
-                              text: '$rating', style: TextStyle(color: Colors.brown)
-                          ),
-                          const TextSpan(
-                              text: '\n\nAverage Time: ', style: TextStyle(fontWeight: FontWeight.bold)
-                          ),
-                          TextSpan(
-                              text: '$avgTime', style: TextStyle(color: Colors.brown)
-                          ),
-                          const TextSpan(
-                              text: '\n\nMinimum Players: ', style: TextStyle(fontWeight: FontWeight.bold)
-                          ),
-                          TextSpan(
-                              text: '$minPlayers', style: TextStyle(color: Colors.brown)
-                          ),
-                          const TextSpan(
-                              text: '\n\nMaximum Players: ', style: TextStyle(fontWeight: FontWeight.bold)
-                          ),
-                          TextSpan(
-                              text: '$maxPlayers', style: TextStyle(color: Colors.brown)
-                          ),
-                      ]
+                          children: <TextSpan>[
+                            const TextSpan(
+                                text: 'Name: ', style: TextStyle(fontWeight: FontWeight.bold)
+                            ),
+                            TextSpan(
+                                text: '$gameName', style: TextStyle(color: Colors.brown)
+                            ),
+                            const TextSpan(
+                                text: '\n\nRank: ', style: TextStyle(fontWeight: FontWeight.bold)
+                            ),
+                            TextSpan(
+                                text: '$rank', style: TextStyle(color: Colors.brown)
+                            ),
+                            const TextSpan(
+                                text: '\n\nURL: ', style: TextStyle(fontWeight: FontWeight.bold)
+                            ),
+                            TextSpan(
+                                text: '$gameName',
+                                style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
+                                recognizer: new TapGestureRecognizer()
+                                  ..onTap = () {_launchUrl();
+                                  }
+                            ),
+                            const TextSpan(
+                                text: '\n\nYear Released: ', style: TextStyle(fontWeight: FontWeight.bold)
+                            ),
+                            TextSpan(
+                                text: '$year', style: TextStyle(color: Colors.brown)
+                            ),
+                            const TextSpan(
+                                text: '\n\nRating: ', style: TextStyle(fontWeight: FontWeight.bold)
+                            ),
+                            TextSpan(
+                                text: '$rating', style: TextStyle(color: Colors.brown)
+                            ),
+                            const TextSpan(
+                                text: '\n\nAverage Time: ', style: TextStyle(fontWeight: FontWeight.bold)
+                            ),
+                            TextSpan(
+                                text: '$avgTime Minutes', style: TextStyle(color: Colors.brown)
+                            ),
+                            const TextSpan(
+                                text: '\n\nMinimum Players: ', style: TextStyle(fontWeight: FontWeight.bold)
+                            ),
+                            TextSpan(
+                                text: '$minPlayers', style: TextStyle(color: Colors.brown)
+                            ),
+                            const TextSpan(
+                                text: '\n\nMaximum Players: ', style: TextStyle(fontWeight: FontWeight.bold)
+                            ),
+                            TextSpan(
+                                text: '$maxPlayers', style: TextStyle(color: Colors.brown)
+                            ),
+                          ]
+                      ),
                     ),
                   ),
-                ),
                 )
               ]
           ),

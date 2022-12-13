@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:game_geek/screens/alarms_screen.dart';
+import 'package:game_geek/screens/game_tracking_page.dart';
 import 'package:game_geek/screens/game_utils_screen.dart';
 import 'package:game_geek/screens/login_screen.dart';
 import 'package:game_geek/screens/game_search_screen.dart';
@@ -281,6 +282,18 @@ class HamburgerDir extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (BuildContext context){
                         return VideosScreen(key:Key('videos'),title: 'videos',);
+                      }));
+            },
+          ),
+          ListTile(
+            title: Text('Game Tracker',
+              style: Theme.of(context).textTheme.headline5,
+            ),
+            onTap:(){
+              Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (BuildContext context){
+                        return TrackingScreen();
                       }));
             },
           ),
