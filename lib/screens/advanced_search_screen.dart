@@ -100,7 +100,7 @@ class _AdvancedSearchScreen extends State<AdvancedSearchScreen> {
 
     return Center(
         child: RichText(
-          textAlign: TextAlign.left,
+          textAlign: TextAlign.center,
         text: TextSpan(
 
             text: '\n\n\n',
@@ -114,47 +114,47 @@ class _AdvancedSearchScreen extends State<AdvancedSearchScreen> {
             text: '$name', style: TextStyle(color: Colors.brown)
             ),
             const TextSpan(
-            text: '\n\nRank: ', style: TextStyle(fontWeight: FontWeight.bold)
+            text: '\nRank: ', style: TextStyle(fontWeight: FontWeight.bold)
             ),
             TextSpan(
             text: '$rankData', style: TextStyle(color: Colors.brown)
             ),
             const TextSpan(
-            text: '\n\nURL: ', style: TextStyle(fontWeight: FontWeight.bold)
+            text: '\nURL: ', style: TextStyle(fontWeight: FontWeight.bold)
             ),
             TextSpan(
-            text: 'link',
+            text: '$name',
             style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
             recognizer: new TapGestureRecognizer()
             ..onTap = () {_launchUrl();
             }
             ),
             const TextSpan(
-            text: '\n\nYear Released: ', style: TextStyle(fontWeight: FontWeight.bold)
+            text: '\nYear Released: ', style: TextStyle(fontWeight: FontWeight.bold)
             ),
             TextSpan(
             text: '$yearData', style: TextStyle(color: Colors.brown)
             ),
             const TextSpan(
-            text: '\n\nRating: ', style: TextStyle(fontWeight: FontWeight.bold)
+            text: '\nRating: ', style: TextStyle(fontWeight: FontWeight.bold)
             ),
             TextSpan(
             text: '$ratingData', style: TextStyle(color: Colors.brown)
             ),
             const TextSpan(
-            text: '\n\nAverage Time: ', style: TextStyle(fontWeight: FontWeight.bold)
+            text: '\nAverage Time: ', style: TextStyle(fontWeight: FontWeight.bold)
             ),
             TextSpan(
             text: '$avgTimeData', style: TextStyle(color: Colors.brown)
             ),
             const TextSpan(
-            text: '\n\nMinimum Players: ', style: TextStyle(fontWeight: FontWeight.bold)
+            text: '\nMinimum Players: ', style: TextStyle(fontWeight: FontWeight.bold)
             ),
             TextSpan(
             text: '$minPlayersData', style: TextStyle(color: Colors.brown)
             ),
             const TextSpan(
-            text: '\n\nMaximum Players: ', style: TextStyle(fontWeight: FontWeight.bold)
+            text: '\nMaximum Players: ', style: TextStyle(fontWeight: FontWeight.bold)
             ),
             TextSpan(
             text: '$maxPlayersData', style: TextStyle(color: Colors.brown)
