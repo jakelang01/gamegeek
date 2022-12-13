@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:game_geek/screens/alarms_screen.dart';
+import 'package:game_geek/screens/game_tracking_page.dart';
 import 'package:game_geek/screens/game_utils_screen.dart';
 import 'package:game_geek/screens/login_screen.dart';
 import 'package:game_geek/screens/game_search_screen.dart';
@@ -92,6 +93,11 @@ class _MyAppState extends State<MyApp> {
                         fontSize: 24,
                         fontWeight: FontWeight.bold
                     ),
+                    headline3: TextStyle(
+                        color: Colors.brown,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                    ),
                     headline5: TextStyle(  //using headline5 as drawer buttons because button has already been defined and it messes up a lot of things
                       shadows: [
                         Shadow(
@@ -133,6 +139,11 @@ class _MyAppState extends State<MyApp> {
                           color: Colors.brown.shade100,
                           fontSize: 24,
                           fontWeight: FontWeight.bold
+                      ),
+                      headline3: TextStyle(
+                        color: Colors.brown,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
                       ),
                       headline5: TextStyle(
                         shadows: [
@@ -281,6 +292,18 @@ class HamburgerDir extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (BuildContext context){
                         return VideosScreen(key:Key('videos'),title: 'videos',);
+                      }));
+            },
+          ),
+          ListTile(
+            title: Text('Game Tracker',
+              style: Theme.of(context).textTheme.headline5,
+            ),
+            onTap:(){
+              Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (BuildContext context){
+                        return TrackingScreen();
                       }));
             },
           ),

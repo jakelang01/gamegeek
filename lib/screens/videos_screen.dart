@@ -72,7 +72,7 @@ class _VideosScreenState extends State<VideosScreen> {
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).dividerColor)),
                   focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.primary)),
-                  labelText: 'Game name',
+                  labelText: 'Game Name',
                     labelStyle: Theme.of(context).textTheme.bodyText1,
                   floatingLabelStyle: Theme.of(context).textTheme.bodyText2
                 ),

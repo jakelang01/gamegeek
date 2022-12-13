@@ -162,6 +162,7 @@ class _AdvancedSearchScreen extends State<AdvancedSearchScreen> {
     ]
         ),
         ),
+
     );
   }
 
@@ -174,7 +175,7 @@ class _AdvancedSearchScreen extends State<AdvancedSearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Game Geek Search'),
+        title: Text('Gamerbase Search'),
         centerTitle: true,
       ),
       //backgroundColor: Theme.of(context).backgroundColor,
@@ -209,7 +210,7 @@ class _AdvancedSearchScreen extends State<AdvancedSearchScreen> {
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
                     child: ElevatedButton(
-                      child: Text('View highest average times'),
+                      child: Text('View Highest Average Times'),
                       onPressed: () {
                         descTimeSearch();
                       },
@@ -218,7 +219,7 @@ class _AdvancedSearchScreen extends State<AdvancedSearchScreen> {
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                     child: ElevatedButton(
-                      child: Text('View lowest average times'),
+                      child: Text('View Lowest Average Times'),
                       onPressed: () {
                         ascTimeSearch();
                       },
