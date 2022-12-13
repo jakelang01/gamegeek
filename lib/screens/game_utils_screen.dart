@@ -135,7 +135,10 @@ class _UtilsScreen extends State<UtilsScreen> {
               },
             ),
           ),
-          Container(
+          const Padding(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0)
+          ),
+          Expanded(
            child: TextField(
              keyboardType: TextInputType.multiline,
              maxLines: null,
