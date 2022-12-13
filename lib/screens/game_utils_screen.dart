@@ -12,6 +12,8 @@ TextEditingController nSides = TextEditingController(text: "6");
 class _UtilsScreen extends State<UtilsScreen> {
 
   int incr = 1;
+  String notes = "";
+  TextEditingController notesController = TextEditingController();
 
   @override
   initState() {
@@ -133,8 +135,25 @@ class _UtilsScreen extends State<UtilsScreen> {
               },
             ),
           ),
-        ],
-      )
+          const Padding(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0)
+          ),
+          Expanded(
+           child: TextField(
+             keyboardType: TextInputType.multiline,
+             maxLines: null,
+             controller: notesController,
+             style: Theme.of(context).textTheme.bodyText1,
+             decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(10),
+              focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Theme.of(context).colorScheme.primary)),
+              hintText: "Your gaming notes here",
+              ),
+           ),
+          ),
+        ]
+      ),
     );
   }
 }
@@ -238,18 +257,17 @@ class _DiceRollerScreen extends State<DiceRollerScreen> {
     );
   }
 }
-
-String roller(int dice, int sides){
-  int j = 0;
-  if(dice > 0 && sides > 0){
-    for(int i = 0; i<dice; i+=1){
-      int temp = Random().nextInt(sides) + 1;
-      //print(Random().nextInt(sides));
-      j+= temp;
+  String roller(int dice, int sides) {
+    int j = 0;
+    if (dice > 0 && sides > 0) {
+      for (int i = 0; i < dice; i += 1) {
+        int temp = Random().nextInt(sides) + 1;
+        //print(Random().nextInt(sides));
+        j += temp;
+      }
+      return j.toString();
     }
-    return j.toString();
+    else {
+      return "0";
+    }
   }
-  else {
-    return "0";
-  }
-}
